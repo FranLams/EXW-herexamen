@@ -18,13 +18,14 @@ const init = () => {
 const createLights = () => {
     hemisphereLight = new THREE.HemisphereLight(0xaaaaaa,0x000000, .9);
     scene.add(hemisphereLight);
+    hemisphereLight.position.set(0, 450, 450);
 
-    shadowLight = new THREE.DirectionalLight(0xffffff, .9);
+    shadowLight = new THREE.DirectionalLight(0xffffff, .7);
     scene.add(shadowLight);
 
-    ambientLight = new THREE.AmbientLight(0x000000, .4);
+    ambientLight = new THREE.AmbientLight(0x9ab5dc, .24);
     scene.add(ambientLight);
-    shadowLight.position.set(150, 350, 350);
+    shadowLight.position.set(0, 550, 350);
     
     shadowLight.castShadow = true;
     shadowLight.shadow.camera.left = -400;
@@ -50,9 +51,9 @@ const createLights = () => {
         fieldOfView,
         aspectRatio
     );
-    camera.position.x =0;
-    camera.position.y = 0;
-    camera.position.z = 200;
+    camera.position.x = -5;
+    camera.position.y = 20;
+    camera.position.z = 150;
 
     renderer = new THREE.WebGLRenderer({
         alpha: true,
@@ -89,7 +90,9 @@ window.addEventListener("gamepaddisconnected", (event) => {
 });
 
 const createKiwi = () => {
-    kiwi = new Kiwi();   
+    kiwi = new Kiwi();
+    kiwi.mesh.scale.set(.8,.8,.8);
+    //kiwi.mesh.rotation.y += 3.2;  
     scene.add(kiwi.mesh);
 }
  
