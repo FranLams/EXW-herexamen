@@ -1,10 +1,11 @@
 import Kiwi from './classes/Kiwi.js';
+import Brainfood from './classes/Brainfood.js';
 
 {
 let scene,
 WIDTH, HEIGHT,
 camera, fieldOfView, aspectRatio, renderer, container,
-hemisphereLight, shadowLight, ambientLight, isGamepadConnected = false, kiwi; 
+hemisphereLight, shadowLight, ambientLight, isGamepadConnected = false, kiwi, brainfood; 
 
 //const $container = document.querySelector(`.game-container`);
  
@@ -12,6 +13,7 @@ const init = () => {
     createScene();
     createLights();
     createKiwi();
+    createBrainfood();
     render();
   }
 
@@ -52,7 +54,7 @@ const createLights = () => {
         aspectRatio
     );
     camera.position.x = -5;
-    camera.position.y = 20;
+    camera.position.y = 0;
     camera.position.z = 150;
 
     renderer = new THREE.WebGLRenderer({
@@ -92,8 +94,16 @@ window.addEventListener("gamepaddisconnected", (event) => {
 const createKiwi = () => {
     kiwi = new Kiwi();
     kiwi.mesh.scale.set(.8,.8,.8);
+    kiwi.mesh.position.x = -50;
     //kiwi.mesh.rotation.y += 3.2;  
     scene.add(kiwi.mesh);
+}
+
+const createBrainfood = () => {
+    brainfood = new Brainfood();
+    brainfood.mesh.scale.set(.8,.8,.8);
+    brainfood.mesh.rotation.y += .5;  
+    scene.add(brainfood.mesh);
 }
  
 //wordt 60 keer per seconde uitgevoerd

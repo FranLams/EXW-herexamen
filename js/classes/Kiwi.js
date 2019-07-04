@@ -4,7 +4,8 @@ class Kiwi {
     constructor() {
 
     this.mesh = new THREE.Object3D();
-	
+    
+    //Head
     const geometryHead = new THREE.SphereGeometry( 16, 8, 8 );
     const materialHead = new THREE.MeshPhongMaterial({color:Colors.colorBody, shading:THREE.FlatShading});
 
@@ -25,7 +26,7 @@ class Kiwi {
     this.mesh.add(sphereBody)
 
 
-    //hat
+    //Hat
     const geometryHat = new THREE.SphereBufferGeometry(15.4, 8, 6, 0, 2*Math.PI, 0, 0.5 * Math.PI);
     const materialHat = new THREE.MeshPhongMaterial({color:Colors.darkBrown, shading:THREE.FlatShading});
     const sphereHat = new THREE.Mesh( geometryHat, materialHat );
@@ -155,24 +156,21 @@ class Kiwi {
     //Snavel
     const geometrySnavel = new THREE.BoxGeometry(5,20,5,1,1,1);
 	const materialSnavel = new THREE.MeshPhongMaterial({color:Colors.colorSnavel, shading:THREE.FlatShading});
-    
-    geometrySnavel.vertices[1].x+=1;
-    geometrySnavel.vertices[4].x-=1;
+   
     geometrySnavel.vertices[0].y-=3.5;
     geometrySnavel.vertices[0].x-=1;
-	//geometrySnavel.vertices[0].y+=30;
-    geometrySnavel.vertices[5].y-=3.5;
-    geometrySnavel.vertices[5].x+=1;
+    geometrySnavel.vertices[1].x+=1;
     geometrySnavel.vertices[2].x-=2.2;
     geometrySnavel.vertices[2].z+=3;
-    geometrySnavel.vertices[7].x+=2.2;
-    geometrySnavel.vertices[7].z+=3;
     geometrySnavel.vertices[3].x-=2.2;
     geometrySnavel.vertices[3].z+=6;
+    geometrySnavel.vertices[4].x-=1;
+    geometrySnavel.vertices[5].y-=3.5;
+    geometrySnavel.vertices[5].x+=1;
     geometrySnavel.vertices[6].x+=2.2;
     geometrySnavel.vertices[6].z+=6;
-	//geometrySnavel.vertices[5].x+=35;
-	//geometrySnavel.vertices[5].y+=30;
+    geometrySnavel.vertices[7].x+=2.2;
+    geometrySnavel.vertices[7].z+=3;
 
 	const snavel = new THREE.Mesh(geometrySnavel, materialSnavel);
 	snavel.position.set(0,11,16);
