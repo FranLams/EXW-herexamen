@@ -1,9 +1,17 @@
 body {
     margin: 0;
+
 }
 #container {
     position: absolute;
     width: 100%;
     height: 100%;
     overflow: hidden;
+}
+
+#world {
+    background: url('../assets/img/background.jpg');
+    background-repeat: none;
+    background-size: cover;
+    background-position-y: 100rem;
 }

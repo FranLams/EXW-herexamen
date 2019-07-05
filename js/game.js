@@ -5,9 +5,7 @@ import Brainfood from './classes/Brainfood.js';
 let scene,
 WIDTH, HEIGHT,
 camera, fieldOfView, aspectRatio, renderer, container,
-hemisphereLight, shadowLight, ambientLight, isGamepadConnected = false, kiwi, brainfood; 
-
-//const $container = document.querySelector(`.game-container`);
+hemisphereLight, shadowLight, ambientLight, isGamepadConnected = false, kiwi, brainfood, hasCollided; 
  
 const init = () => {
     createScene();
@@ -42,6 +40,7 @@ const createLights = () => {
 }
  
   const createScene = () => {
+    hasCollided = false;
     WIDTH = window.innerWidth;
     HEIGHT = window.innerHeight;
 
@@ -63,7 +62,7 @@ const createLights = () => {
     });
     renderer.setSize(WIDTH, HEIGHT);
     renderer.shadowMap.enable = true;
-    renderer.setClearColor(0xDAE3F0);
+    //renderer.setClearColor(0xDAE3F0);
 
     container = document.getElementById('world');
     container.appendChild(renderer.domElement);
@@ -94,20 +93,51 @@ window.addEventListener("gamepaddisconnected", (event) => {
 const createKiwi = () => {
     kiwi = new Kiwi();
     kiwi.mesh.scale.set(.8,.8,.8);
-    kiwi.mesh.position.x = -50;
-    //kiwi.mesh.rotation.y += 3.2;  
+    kiwi.mesh.position.x = -10;
+    kiwi.mesh.position.y = -30;
+    //kiwi.mesh.rotation.y += 1;  
     scene.add(kiwi.mesh);
 }
 
 const createBrainfood = () => {
     brainfood = new Brainfood();
     brainfood.mesh.scale.set(.8,.8,.8);
+    brainfood.mesh.position.x = 40;
     brainfood.mesh.rotation.y += .5;  
     scene.add(brainfood.mesh);
 }
- 
+
+/*const doAnimalLogic = () => {
+    let brainfood;
+    const animalPos = new THREE.Vector3();
+    //const animalsToRemove = [];
+
+    animalPos.setFromMatrixPosition(brainfood.matrixWorld);
+
+    //check collision
+    if (animalPos.distanceTo(kiwi.position) <= .5) {
+        console.log("hit");
+        hasCollided = true;
+        //handleCollision();
+    }
+}*/
+  
+    /*let fromWhere;
+    animalsToRemove.forEach((element, index) => {
+      oneAnimal = animalsToRemove[index];
+      fromWhere = animalsInPath.indexOf(oneAnimal);
+      animalsInPath.splice(fromWhere, 1);
+      animalsPool.push(oneAnimal);
+      oneAnimal.visible = false;
+      console.log("remove animal");
+    });*/
+
+const $world = document.getElementById('world');
+$world.style.backgroundPositionY = '800px';
+
 //wordt 60 keer per seconde uitgevoerd
 const render = () => {
+    //doAnimalLogic();
     requestAnimationFrame( render );
  
     //Stel de aangesloten gamepad in
@@ -129,20 +159,38 @@ const render = () => {
         var triggerLeft = gamepad.buttons[6];
         var triggerRight = gamepad.buttons[7];
    
-        kiwi.mesh.position.y -= 1;
-   
-        if(joystickLeftY > 0){
-            kiwi.mesh.position.y += joystickLeftY/0.5;
-            kiwi.mesh.position.x += joystickLeftY/0.6;
+        if(Number($world.style.backgroundPositionY.slice(0, -2)) >500){
+            let fallDownAmount = 1;
+            if(joystickRightY === 0  && joystickLeftY === 0){
+                fallDownAmount = 4;
+            }
+            $world.style.backgroundPositionY = `${Number($world.style.backgroundPositionY.slice(0, -2))-fallDownAmount}px`;
+
         }
+
+        kiwi.reset()
    
-        if(joystickRightY > 0){    
-            kiwi.mesh.position.y += joystickRightY/0.5;
+        if(joystickRightY > 0){   
+            kiwi.mesh.position.y += joystickRightY/10;
             kiwi.mesh.position.x -= joystickRightY/0.6;
+            kiwi.fireRight();
+            $world.style.backgroundPositionY = `${Number($world.style.backgroundPositionY.slice(0, -2))+(joystickRightY*6)}px`;
+        } else {
+            kiwi.mesh.position.y -= .1;
+        }
+
+        if(joystickLeftY > 0){
+            kiwi.mesh.position.y += joystickLeftY/10;
+            kiwi.mesh.position.x += joystickLeftY/0.6;
+            kiwi.fireLeft();
+            $world.style.backgroundPositionY = `${Number($world.style.backgroundPositionY.slice(0, -2))+(joystickLeftY*6)}px`;
+        } else {
+            kiwi.mesh.position.y -= .1;
         }
    
         kiwi.mesh.position.z += triggerRight.value/15;
         kiwi.mesh.position.z -= triggerLeft.value/15;
+
    
         //Als er op arrowUp geduwt wordt, trilt de gamepad
         if(cross.pressed){

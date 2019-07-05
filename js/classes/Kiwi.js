@@ -1,6 +1,8 @@
 import Colors from './Colors.js';
 
+
 class Kiwi {
+
     constructor() {
 
     this.mesh = new THREE.Object3D();
@@ -188,6 +190,25 @@ class Kiwi {
     
     this.mesh.add( jetLeft );
 
+
+    const geometryFireLeft = new THREE.ConeGeometry( 5, 25, 32 );
+    const materialFireLeft = new THREE.MeshPhongMaterial({color:Colors.red, shading:THREE.FlatShading});
+    const fireLeft = new THREE.Mesh( geometryFireLeft, materialFireLeft );
+    fireLeft.position.set(-7,4,-13.2);
+    fireLeft.rotation.z += .1;
+    fireLeft.rotation.x -= -3.2;
+    this.mesh.add( fireLeft );
+
+    const geometryFireLeftYellow = new THREE.ConeGeometry( 2, 15, 32 );
+    const materialFireLeftYellow = new THREE.MeshPhongMaterial({color:Colors.yellow, shading:THREE.FlatShading});
+    const fireLeftYellow = new THREE.Mesh( geometryFireLeftYellow, materialFireLeftYellow );
+    fireLeftYellow.position.set(-8,-2,-13);
+    fireLeftYellow.rotation.z += .1;
+    fireLeftYellow.rotation.x -= -3.2;
+    this.mesh.add( fireLeftYellow );
+
+
+
     const geometryJetRight = new THREE.CylinderGeometry( 4, 6, 25, 10 );
 	const materialJetRight = new THREE.MeshPhongMaterial({color:Colors.colorSnavel, shading:THREE.FlatShading});
     const jetRight = new THREE.Mesh( geometryJetRight, materialJetRight );
@@ -196,6 +217,25 @@ class Kiwi {
     jetRight.rotation.x -= -.2;
     
     this.mesh.add( jetRight );
+
+
+    const geometryFireRight = new THREE.ConeGeometry( 5, 25, 32 );
+    const materialFireRight = new THREE.MeshPhongMaterial({color:Colors.red, shading:THREE.FlatShading});
+    const fireRight = new THREE.Mesh( geometryFireRight, materialFireRight );
+    fireRight.position.set(7,4,-13.2);
+    fireRight.rotation.z -= .1;
+    fireRight.rotation.x -= -3.2;
+    this.mesh.add( fireRight );
+
+    const geometryFireRightYellow = new THREE.ConeGeometry( 2, 15, 32 );
+    const materialFireRightYellow = new THREE.MeshPhongMaterial({color:Colors.yellow, shading:THREE.FlatShading});
+    const fireRightYellow = new THREE.Mesh( geometryFireRightYellow, materialFireRightYellow );
+    fireRightYellow.position.set(8,-2,-13);
+    fireRightYellow.rotation.z -= .1;
+    fireRightYellow.rotation.x -= -3.2;
+    this.mesh.add( fireRightYellow )
+
+
 
 
     const geometryBackpack = new THREE.BoxGeometry(15,15,7,1,1,1);
@@ -258,5 +298,46 @@ class Kiwi {
     this.mesh.add(sphereWingRight)
 
     }
+
+    fireLeft() {
+        this.mesh.children[18].position.x = -8.5;
+        this.mesh.children[18].position.y = -15;
+        this.mesh.children[18].position.z = -16;
+
+        this.mesh.children[19].position.x = -8.5;
+        this.mesh.children[19].position.y = -12;
+        this.mesh.children[19].position.z = -13.2;
+    }
+
+    fireRight() {
+        this.mesh.children[21].position.x = 8.5;
+        this.mesh.children[21].position.y = -15;
+        this.mesh.children[21].position.z = -16;
+
+        this.mesh.children[22].position.x = 8.5;
+        this.mesh.children[22].position.y = -12;
+        this.mesh.children[22].position.z = -13.2;
+    }
+
+    reset() {
+        this.mesh.children[18].position.x = 0;
+        this.mesh.children[18].position.y = 0;
+        this.mesh.children[18].position.z = 0;
+
+        this.mesh.children[19].position.x = 0;
+        this.mesh.children[19].position.y = 0;
+        this.mesh.children[19].position.z = 0;
+
+        this.mesh.children[21].position.x = 0;
+        this.mesh.children[21].position.y = 0;
+        this.mesh.children[21].position.z = 0;
+
+        this.mesh.children[22].position.x = 0;
+        this.mesh.children[22].position.y = 0;
+        this.mesh.children[22].position.z = 0;
+    }
+
+    //fireLeft.position.set(-7,4,-13.2);
+    //fireLeftYellow.position.set(-9,-12,-13);
 }
 export default Kiwi;
