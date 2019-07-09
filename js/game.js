@@ -5,8 +5,20 @@ import Brainfood from './classes/Brainfood.js';
 let scene,
 WIDTH, HEIGHT,
 camera, fieldOfView, aspectRatio, renderer, container,
-hemisphereLight, shadowLight, ambientLight, isGamepadConnected = false, kiwi, brainfood, hasCollided; 
+hemisphereLight, shadowLight, ambientLight, isGamepadConnected = false, kiwi, brainfood, hasCollided,
+worms = [], haveWormsDropped=[false,false,false,false,false],
+data=JSON.parse(facts);
+
+const modal = document.getElementById("myModal");
+const $world = document.getElementById('world');
+const $height = document.getElementById('height');
  
+const $fact = document.getElementById('fact');
+const $answer1 = document.getElementById('answer1');
+const $answer2 = document.getElementById('answer2');
+const $answer3 = document.getElementById('answer3');
+const $answer4 = document.getElementById('answer4');
+
 const init = () => {
     createScene();
     createLights();
@@ -39,12 +51,20 @@ const createLights = () => {
     shadowLight.shadow.mapSize.height = 2048;
 }
  
-  const createScene = () => {
+const createScene = () => {
     hasCollided = false;
     WIDTH = window.innerWidth;
     HEIGHT = window.innerHeight;
 
     scene = new THREE.Scene();
+
+    let backgroundTexture = new THREE.TextureLoader().load("assets/img/background.jpg");
+    var geometry = new THREE.PlaneGeometry( WIDTH/4, 3100, 1 );
+    var material = new THREE.MeshLambertMaterial( {map: backgroundTexture} );
+    let backgroundPlane = new THREE.Mesh( geometry, material );
+    backgroundPlane.position.z -= 20;
+    backgroundPlane.position.y += 1570;
+    scene.add( backgroundPlane );
 
     aspectRatio = WIDTH / HEIGHT;
     fieldOfView = 60;
@@ -62,13 +82,11 @@ const createLights = () => {
     });
     renderer.setSize(WIDTH, HEIGHT);
     renderer.shadowMap.enable = true;
-    //renderer.setClearColor(0xDAE3F0);
 
     container = document.getElementById('world');
     container.appendChild(renderer.domElement);
 };
- 
-//Functie voor de deadzone op de joysticks
+
 const applyDeadzone = (number, threshold) => {  
     let percentage = (Math.abs(number) - threshold) / (1 - threshold);
     if(percentage < 0)
@@ -76,14 +94,12 @@ const applyDeadzone = (number, threshold) => {
     return percentage * (number > 0 ? 1 : -1);
 }
  
-//Wordt uitgevoerd als de gamepad is aangesloten en als er op een willekeurige knop geduwt is
 window.addEventListener("gamepadconnected", (event) => {
     isGamepadConnected = true;
     console.log("A gamepad connected:");
     console.log(event.gamepad);
 });
  
-//Wordt uitgevoerd als de gamepad niet meer aangesloten is
 window.addEventListener("gamepaddisconnected", (event) => {
     isGamepadConnected = false;
     console.log("A gamepad disconnected:");
@@ -94,112 +110,154 @@ const createKiwi = () => {
     kiwi = new Kiwi();
     kiwi.mesh.scale.set(.8,.8,.8);
     kiwi.mesh.position.x = -10;
-    kiwi.mesh.position.y = -30;
-    //kiwi.mesh.rotation.y += 1;  
+    kiwi.mesh.position.y = 0;  
     scene.add(kiwi.mesh);
 }
 
-const createBrainfood = () => {
+const createBrainfood = (dropHeight, wormName) => {
     brainfood = new Brainfood();
     brainfood.mesh.scale.set(.8,.8,.8);
-    brainfood.mesh.position.x = 40;
-    brainfood.mesh.rotation.y += .5;  
+    brainfood.mesh.name = wormName;
+
+    let randomValueX = Math.round(Math.random() * (WIDTH/30));
+    randomValueX = randomValueX *2;
+    let isNegative = Math.round(Math.random() * (1 - 0));
+    if(isNegative){
+        randomValueX = -Math.abs(randomValueX);
+    }
+
+    brainfood.mesh.position.x = randomValueX;
+    brainfood.mesh.position.y = dropHeight;
+    brainfood.mesh.rotation.y += Math.random() * 3;  
     scene.add(brainfood.mesh);
+    return brainfood;
 }
 
-/*const doAnimalLogic = () => {
-    let brainfood;
+const doAnimalLogic = () => {
     const animalPos = new THREE.Vector3();
-    //const animalsToRemove = [];
+    animalPos.setFromMatrixPosition(kiwi.mesh.matrixWorld);
 
-    animalPos.setFromMatrixPosition(brainfood.matrixWorld);
-
-    //check collision
-    if (animalPos.distanceTo(kiwi.position) <= .5) {
-        console.log("hit");
-        hasCollided = true;
-        //handleCollision();
+    for(let i =0, l=worms.length; i < l;i++){
+        if (animalPos.distanceTo(worms[i].mesh.position) <= 30) {
+            handleCollision(worms[i]);
+        }
     }
-}*/
-  
-    /*let fromWhere;
-    animalsToRemove.forEach((element, index) => {
-      oneAnimal = animalsToRemove[index];
-      fromWhere = animalsInPath.indexOf(oneAnimal);
-      animalsInPath.splice(fromWhere, 1);
-      animalsPool.push(oneAnimal);
-      oneAnimal.visible = false;
-      console.log("remove animal");
-    });*/
+}
 
-const $world = document.getElementById('world');
-$world.style.backgroundPositionY = '800px';
+const handleCollision = (currentWorm) => {
+    hasCollided = true;
+
+    let currentWormIndex = worms.indexOf(currentWorm);
+    if(currentWormIndex > -1){
+        worms.splice(currentWormIndex, 1)
+        scene.remove(currentWorm.mesh);
+    }
+
+    setModal(data[currentWorm.mesh.name]);
+
+    modal.style.display = "block";
+}
+
+const setModal = (atmosphereLayer) => {
+    $fact.innerHTML = atmosphereLayer.facts[0];
+    //$answer1.innerHTML = atmosphereLayer.questions[0].answers[0];
+    //$answer2.innerHTML = atmosphereLayer.questions[0].answers[1];
+    //$answer3.innerHTML = atmosphereLayer.questions[0].answers[2];
+    //$answer4.innerHTML = atmosphereLayer.questions[0].answers[3];
+}
 
 //wordt 60 keer per seconde uitgevoerd
 const render = () => {
-    //doAnimalLogic();
+    doAnimalLogic();
     requestAnimationFrame( render );
  
     //Stel de aangesloten gamepad in
     if(isGamepadConnected){
-        var gamepad = navigator.getGamepads()[0];
+        const gamepad = navigator.getGamepads()[0];
  
-        var joystickLeftX = applyDeadzone(gamepad.axes[0], 0.25);
-        var joystickLeftY = applyDeadzone(gamepad.axes[1], 0.25);
-        var joystickRightX = applyDeadzone(gamepad.axes[2], 0.25);
-        var joystickRightY = applyDeadzone(gamepad.axes[3], 0.25);
+        //const joystickLeftX = applyDeadzone(gamepad.axes[0], 0.25);
+        const joystickLeftY = applyDeadzone(gamepad.axes[1], 0.25);
+        //const joystickRightX = applyDeadzone(gamepad.axes[2], 0.25);
+        const joystickRightY = applyDeadzone(gamepad.axes[3], 0.25);
    
-        var cross = gamepad.buttons[0];
-        var circle = gamepad.buttons[1];
-        var square = gamepad.buttons[2];
-        var triangle = gamepad.buttons[3];
+        const cross = gamepad.buttons[0];
+        const circle = gamepad.buttons[1];
+        const square = gamepad.buttons[2];
+        const triangle = gamepad.buttons[3];
    
-        var arrowUp = gamepad.buttons[12];
-        var arrowDown = gamepad.buttons[13];
-        var triggerLeft = gamepad.buttons[6];
-        var triggerRight = gamepad.buttons[7];
-   
-        if(Number($world.style.backgroundPositionY.slice(0, -2)) >500){
-            let fallDownAmount = 1;
-            if(joystickRightY === 0  && joystickLeftY === 0){
-                fallDownAmount = 4;
-            }
-            $world.style.backgroundPositionY = `${Number($world.style.backgroundPositionY.slice(0, -2))-fallDownAmount}px`;
+        //const arrowUp = gamepad.buttons[12];
+        //const arrowDown = gamepad.buttons[13];
+        //const triggerLeft = gamepad.buttons[6];
+        //const triggerRight = gamepad.buttons[7];
 
+        if(Math.round(kiwi.mesh.position.y*100) > 0){
+            $height.innerHTML = Math.round(kiwi.mesh.position.y*100);
+        }else{
+            $height.innerHTML = 0;
+        }
+   
+        if(kiwi.mesh.position.y > 100 && !haveWormsDropped[0]) {
+            worms.push(createBrainfood(350, 'troposfeer'));
+            haveWormsDropped[0] = true;
+        }
+        if(kiwi.mesh.position.y > 850 && !haveWormsDropped[1]) {
+            worms.push(createBrainfood(1000, 'stratosfeer'));
+            haveWormsDropped[1]=true;
+        }
+        if(kiwi.mesh.position.y > 1400 && !haveWormsDropped[2]) {
+            worms.push(createBrainfood(1600, 'mesosfeer'));
+            haveWormsDropped[2]=true;
+        }
+        if(kiwi.mesh.position.y > 1900 && !haveWormsDropped[3]) {
+            worms.push(createBrainfood(2150, 'thermosfeer'));
+            haveWormsDropped[3]=true;
+        }
+        if(kiwi.mesh.position.y > 2400 && !haveWormsDropped[4]) {
+            worms.push(createBrainfood(2750, 'exosfeer'));
+            haveWormsDropped[4]=true;
+        }
+
+        for(let i = 0, l = worms.length; i < l; i++){
+            worms[i].mesh.position.y -= 0.2;
         }
 
         kiwi.reset()
-   
-        if(joystickRightY > 0){   
-            kiwi.mesh.position.y += joystickRightY/10;
-            kiwi.mesh.position.x -= joystickRightY/0.6;
-            kiwi.fireRight();
-            $world.style.backgroundPositionY = `${Number($world.style.backgroundPositionY.slice(0, -2))+(joystickRightY*6)}px`;
-        } else {
-            kiwi.mesh.position.y -= .1;
+
+        if(!hasCollided){
+            camera.position.y = kiwi.mesh.position.y +30;
+            if(joystickRightY > 0){   
+                kiwi.mesh.position.y += joystickRightY;
+                kiwi.mesh.position.x -= joystickRightY/0.6;
+                kiwi.fireRight();
+            } else if(kiwi.mesh.position.y > 0){
+                kiwi.mesh.position.y -= 0.3;
+            }
+    
+            if(joystickLeftY > 0 ){
+                kiwi.mesh.position.y += joystickLeftY;
+                kiwi.mesh.position.x += joystickLeftY/0.6;
+                kiwi.fireLeft();
+            } else if(kiwi.mesh.position.y > 0) {
+                kiwi.mesh.position.y -= 0.3;
+            }
+    
+            if(kiwi.mesh.position.y > 0){
+                let fallDownAmount = 0.3;
+                if(joystickRightY === 0  && joystickLeftY === 0){
+                    fallDownAmount = 1;
+                }
+                kiwi.mesh.position.y -= fallDownAmount;
+            }
         }
 
-        if(joystickLeftY > 0){
-            kiwi.mesh.position.y += joystickLeftY/10;
-            kiwi.mesh.position.x += joystickLeftY/0.6;
-            kiwi.fireLeft();
-            $world.style.backgroundPositionY = `${Number($world.style.backgroundPositionY.slice(0, -2))+(joystickLeftY*6)}px`;
-        } else {
-            kiwi.mesh.position.y -= .1;
-        }
+        if(kiwi.mesh.position.y > 2920){
+            hasCollided = true;
+            console.log("FINISHED");
+        }   
    
-        kiwi.mesh.position.z += triggerRight.value/15;
-        kiwi.mesh.position.z -= triggerLeft.value/15;
-
-   
-        //Als er op arrowUp geduwt wordt, trilt de gamepad
-        if(cross.pressed){
-            gamepad.vibrationActuator.playEffect("dual-rumble", {
-                startDelay: 0,
-                duration: 500,
-                weakMagnitude: 1.0,
-                strongMagnitude: 1.0
-            });
+        if(circle.pressed && hasCollided){
+            modal.style.display = "none";
+            hasCollided = false;
         }
     }
    

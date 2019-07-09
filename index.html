@@ -10,7 +10,21 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>   
-    <div id="world"></div>
+    <div id="world">
+        <p>Hoogte: <span id="height"></span> meter</p>
+        <div id="myModal" class="modal">
+            <div class="modal-content">
+              <p>Wist je datje</p>
+              <p id="fact"></p>
+              <p id="answer1"></p>
+              <p id="answer2"></p>
+              <p id="answer3"></p>
+              <p id="answer4"></p>
+              <p>'Circle' Sluiten</p>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="assets/data.json"></script>
     <script src="js/three.js"></script>
     <script src="js/index.js" type="module"></script>
     <script src="js/game.js" type="module"></script>
