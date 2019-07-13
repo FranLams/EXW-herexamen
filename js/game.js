@@ -54,6 +54,7 @@ const createLights = () => {
 }
  
 const createScene = () => {
+    $height.innerHTML = 0;
     hasCollided = false;
     WIDTH = window.innerWidth;
     HEIGHT = window.innerHeight;
@@ -61,7 +62,7 @@ const createScene = () => {
     scene = new THREE.Scene();
 
     let backgroundTexture = new THREE.TextureLoader().load("assets/img/background.jpg");
-    var geometry = new THREE.PlaneGeometry( WIDTH/4, 3100, 1 );
+    var geometry = new THREE.PlaneGeometry( 390, 3290, 1 );
     var material = new THREE.MeshLambertMaterial( {map: backgroundTexture} );
     let backgroundPlane = new THREE.Mesh( geometry, material );
     backgroundPlane.position.z -= 20;
@@ -170,6 +171,51 @@ const setModalQuestion = () => {
     $answer2.innerHTML = data.question.facts[0].answers[1];
     $answer3.innerHTML = data.question.facts[0].answers[2];
     $answer4.innerHTML = data.question.facts[0].answers[3];
+
+    if(isGamepadConnected){
+        const gamepad = navigator.getGamepads()[0];
+        
+        const cross = gamepad.buttons[0];
+        const circle = gamepad.buttons[1];
+        const square = gamepad.buttons[2];
+        const triangle = gamepad.buttons[3];
+        
+        if(square.pressed){
+            console.log("square pressed");
+            if(data.question.facts[0].answers[0] == data.question.facts[0].correctAnswer){
+                showCertificate();
+            } else {
+                showLost();
+            }
+        }
+
+        if(triangle.pressed){
+            console.log("triangle pressed");
+            if(data.question.facts[0].answers[1] == data.question.facts[0].correctAnswer){
+                showCertificate();
+            } else {
+                showLost();
+            }
+        }
+
+        if(circle.pressed){
+            console.log("circle pressed");
+            if(data.question.facts[0].answers[2] == data.question.facts[0].correctAnswer){
+                showCertificate();
+            } else {
+                showLost();
+            }
+        }
+
+        if(cross.pressed){
+            console.log("cross pressed");
+            if(data.question.facts[0].answers[3] == data.question.facts[0].correctAnswer){
+                showCertificate();
+            } else {
+                showLost();
+            }
+        }
+    }
 }
 
 //wordt 60 keer per seconde uitgevoerd
@@ -190,17 +236,22 @@ const render = () => {
         const circle = gamepad.buttons[1];
         const square = gamepad.buttons[2];
         const triangle = gamepad.buttons[3];
-   
-        //const arrowUp = gamepad.buttons[12];
-        //const arrowDown = gamepad.buttons[13];
-        //const triggerLeft = gamepad.buttons[6];
-        //const triggerRight = gamepad.buttons[7];
 
-        if(Math.round(kiwi.mesh.position.y*100) > 0){
-            $height.innerHTML = Math.round(kiwi.mesh.position.y*100);
-        }else{
+        if(Math.round(kiwi.mesh.position.y*100) > 260000){
+            $height.innerHTML = Math.round((kiwi.mesh.position.y*100)*33.3);
+        } else if(Math.round(kiwi.mesh.position.y*100) > 195000) {
+            $height.innerHTML = Math.round((kiwi.mesh.position.y*100)*4.17);
+        } else if(Math.round(kiwi.mesh.position.y*100) > 117000) {
+            $height.innerHTML = Math.round((kiwi.mesh.position.y*100)/2.19);
+        } else if(Math.round(kiwi.mesh.position.y*100) > 58000) {
+            $height.innerHTML = Math.round((kiwi.mesh.position.y*100)*0.44);
+        }else if(Math.round(kiwi.mesh.position.y*100) > 0) {
+            $height.innerHTML = Math.round((kiwi.mesh.position.y*100)/3.26);
+        }
+        else{
             $height.innerHTML = 0;
         }
+
    
         if(kiwi.mesh.position.y > 100 && !haveWormsDropped[0]) {
             worms.push(createBrainfood(350, 'troposfeer'));
@@ -231,8 +282,9 @@ const render = () => {
 
         if(!hasCollided){
             camera.position.y = kiwi.mesh.position.y +30;
+
             if(joystickRightY > 0){   
-                kiwi.mesh.position.y += joystickRightY;
+                kiwi.mesh.position.y += joystickRightY/0.7;
                 kiwi.mesh.position.x -= joystickRightY/0.6;
                 kiwi.fireRight();
             } else if(kiwi.mesh.position.y > 0){
@@ -240,7 +292,7 @@ const render = () => {
             }
     
             if(joystickLeftY > 0 ){
-                kiwi.mesh.position.y += joystickLeftY;
+                kiwi.mesh.position.y += joystickLeftY/0.7;
                 kiwi.mesh.position.x += joystickLeftY/0.6;
                 kiwi.fireLeft();
             } else if(kiwi.mesh.position.y > 0) {
@@ -256,9 +308,8 @@ const render = () => {
             }
         }
 
-        if(kiwi.mesh.position.y > 2920){
+        if(kiwi.mesh.position.y > 3050){
             hasCollided = true;
-            console.log("FINISHED");
             setModalQuestion();
 
             modalQuestion.style.display = "block";

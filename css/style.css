@@ -28,6 +28,14 @@ body {
     left:1rem;
 }
 
+.heightStyle {
+    font-family: "Janda Mantee";
+    font-size: 2.5rem;
+    color: white;
+    padding-top: 2rem;
+    padding-left: 2rem;
+}
+
 .modal {
     display: none;
     position: fixed;
