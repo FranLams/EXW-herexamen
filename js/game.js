@@ -9,11 +9,13 @@ hemisphereLight, shadowLight, ambientLight, isGamepadConnected = false, kiwi, br
 worms = [], haveWormsDropped=[false,false,false,false,false],
 data=JSON.parse(facts);
 
-const modal = document.getElementById("myModal");
+const modalFact = document.getElementById("myModalFact");
+const modalQuestion = document.getElementById("myModalQuestion");
 const $world = document.getElementById('world');
 const $height = document.getElementById('height');
  
 const $fact = document.getElementById('fact');
+const $question = document.getElementById('question');
 const $answer1 = document.getElementById('answer1');
 const $answer2 = document.getElementById('answer2');
 const $answer3 = document.getElementById('answer3');
@@ -72,8 +74,8 @@ const createScene = () => {
         fieldOfView,
         aspectRatio
     );
-    camera.position.x = -5;
-    camera.position.y = 0;
+    camera.position.x = 0;
+    camera.position.y = 30;
     camera.position.z = 150;
 
     renderer = new THREE.WebGLRenderer({
@@ -153,17 +155,21 @@ const handleCollision = (currentWorm) => {
         scene.remove(currentWorm.mesh);
     }
 
-    setModal(data[currentWorm.mesh.name]);
+    setModalFact(data[currentWorm.mesh.name]);
 
-    modal.style.display = "block";
+    modalFact.style.display = "block";
 }
 
-const setModal = (atmosphereLayer) => {
+const setModalFact = (atmosphereLayer) => {
     $fact.innerHTML = atmosphereLayer.facts[0];
-    //$answer1.innerHTML = atmosphereLayer.questions[0].answers[0];
-    //$answer2.innerHTML = atmosphereLayer.questions[0].answers[1];
-    //$answer3.innerHTML = atmosphereLayer.questions[0].answers[2];
-    //$answer4.innerHTML = atmosphereLayer.questions[0].answers[3];
+}
+
+const setModalQuestion = () => {
+    $question.innerHTML = data.question.facts[0].fact;
+    $answer1.innerHTML = data.question.facts[0].answers[0];
+    $answer2.innerHTML = data.question.facts[0].answers[1];
+    $answer3.innerHTML = data.question.facts[0].answers[2];
+    $answer4.innerHTML = data.question.facts[0].answers[3];
 }
 
 //wordt 60 keer per seconde uitgevoerd
@@ -175,9 +181,9 @@ const render = () => {
     if(isGamepadConnected){
         const gamepad = navigator.getGamepads()[0];
  
-        //const joystickLeftX = applyDeadzone(gamepad.axes[0], 0.25);
+        const joystickLeftX = applyDeadzone(gamepad.axes[0], 0.25);
         const joystickLeftY = applyDeadzone(gamepad.axes[1], 0.25);
-        //const joystickRightX = applyDeadzone(gamepad.axes[2], 0.25);
+        const joystickRightX = applyDeadzone(gamepad.axes[2], 0.25);
         const joystickRightY = applyDeadzone(gamepad.axes[3], 0.25);
    
         const cross = gamepad.buttons[0];
@@ -253,10 +259,14 @@ const render = () => {
         if(kiwi.mesh.position.y > 2920){
             hasCollided = true;
             console.log("FINISHED");
-        }   
+            setModalQuestion();
+
+            modalQuestion.style.display = "block";
+        }
+           
    
         if(circle.pressed && hasCollided){
-            modal.style.display = "none";
+            modalFact.style.display = "none";
             hasCollided = false;
         }
     }

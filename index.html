@@ -12,15 +12,42 @@
 <body>   
     <div id="world">
         <p>Hoogte: <span id="height"></span> meter</p>
-        <div id="myModal" class="modal">
+        <div id="myModalFact" class="modal">
             <div class="modal-content">
-              <p>Wist je datje</p>
-              <p id="fact"></p>
-              <p id="answer1"></p>
-              <p id="answer2"></p>
-              <p id="answer3"></p>
-              <p id="answer4"></p>
-              <p>'Circle' Sluiten</p>
+                <h2>Wist je datje</h2>
+                <p id="fact"></p>
+                <div class="close">
+                    <img src="assets/img/circle.png" width="35" height="35" alt="circle button">
+                    <p>Sluiten</p>
+                </div>
+            </div>
+        </div>
+        <div id="myModalQuestion" class="modal">
+            <div class="modal-content">
+                <h2>De beslissende vraag...</h2>
+                <p id="question"></p>
+                <div class="allAnswers">
+                    <div>
+                        <div class="answer">
+                            <img src="assets/img/square.png" width="35" height="35" alt="square button">
+                            <p id="answer1"></p>
+                        </div>
+                        <div class="answer">
+                            <img src="assets/img/triangle.png" width="35" height="35" alt="triangle button">
+                            <p id="answer2"></p>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="answer">
+                            <img src="assets/img/circle.png" width="35" height="35" alt="circle button">
+                            <p id="answer3"></p>
+                        </div>
+                        <div class="answer">
+                            <img src="assets/img/cross.png" width="35" height="35" alt="cross button">
+                            <p id="answer4"></p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
