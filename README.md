@@ -1,4 +1,4 @@
-# EXW-herexamen
+# Space kiwi
 
 Een educatieve tool/game waarmee kinderen tussen 8 en 10 jaar kunnen ontdekken wat er zich allemaal in de lucht bevindt.
 
