@@ -24,16 +24,170 @@ body {
 #world > p {
     background:transparent;
     position: absolute;
+
     top:1rem;
     left:1rem;
 }
 
-.heightStyle {
+.hide {
+    display: none;
+}
+
+.game-container, .start-container, .instructions-container, .certificate-container, .lost-container {
+    width: 100%;
+    height: 100%;
+  
+    position: absolute;
+  
+    opacity: 0;
+    z-index: -200;
+  }
+  
+.active {
+    opacity: 1;
+    z-index: 200;
+}
+
+.start-container {
+    background: white url('../assets/img/background-menu.jpg');
+    background-size: cover;
+    background-repeat: none;
+
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.start-text {
+    font-family: "Janda Mantee";
+    color: white;
+    margin-left: 11.5rem;
+    display: flex;
+    flex-direction: column;
+    height: 45vh;
+    justify-content: flex-end;
+}
+
+.title {
+    font-size: 7.5rem;
+    text-transform: uppercase;
+    text-shadow: 0.25rem 0.25rem #F4B99E;
+}
+
+.subtitle {
+    font-size: 2.5rem;
+}
+
+.buttons-start {
     font-family: "Janda Mantee";
     font-size: 2.5rem;
     color: white;
-    padding-top: 2rem;
-    padding-left: 2rem;
+    text-shadow: 0.15rem 0.15rem #160D3F;
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 52%;
+    margin-left: 11.5rem;
+    align-items: flex-end;
+    height: 91vh;
+}
+
+.buttons-instructions {
+    font-family: "Janda Mantee";
+    font-size: 2.5rem;
+    color: white;
+    text-shadow: 0.15rem 0.15rem #160D3F;
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 30%;
+    margin-left: 11.5rem;
+    align-items: flex-end;
+    height: 76vh;
+}
+
+.back-button {
+    font-family: "Janda Mantee";
+    font-size: 2.5rem;
+    color: white;
+    text-shadow: 0.15rem 0.15rem #160D3F;
+    width: 90%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    margin-top: 4rem;
+}
+
+.back-button::before {
+    content: '';
+    display: block;
+    background: url('../assets/img/triangle.png'); 
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 3.5rem;
+    height: 3.5rem;
+    margin-right: 1rem;
+}
+
+.start-button::before, .instructions-button::before, .story-button::before {
+    content: '';
+    display: block;
+
+    background-repeat: no-repeat;
+    width: 7rem;
+    height: 7rem;
+    margin-bottom: -3.7rem;
+    margin-left: -3.5rem;
+    z-index: -10;
+}
+
+.start-button::before {
+    background: url('../assets/img/option01.svg');  
+}
+
+.instructions-button::before {
+    background: url('../assets/img/option02.svg');
+}
+
+.story-button::before {
+    background: url('../assets/img/option03.svg');
+}
+
+.instructions-container {
+    background: white url('../assets/img/background-instructions.jpg');
+    background-size: cover;
+    background-repeat: none;
+}
+
+.info {
+    background: transparent;
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.heightStyle {
+    background:transparent;
+    font-family: "Janda Mantee";
+    font-size: 2.7rem;
+    color: white;
+    padding-top: 3.5rem;
+    padding-left: 5rem;
+    
+}
+
+.timeStyle {
+    background:transparent;
+    font-family: "Janda Mantee";
+    font-size: 2.7rem;
+    color: white;
+    padding-top: 3.5rem;
+    padding-right: 5rem;
 }
 
 .modal {

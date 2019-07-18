@@ -4,14 +4,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Super cool herexamen</title>
+    <link rel="shortcut icon" type="image/png" href="assets/img/favi.png"/>
+   
+    <title>Space kiwi</title>
 
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
-<body>   
-    <div id="world">
-        <p class="heightStyle">Hoogte: <span id="height"></span> meter</p>
+<body>
+    <div id="hidden" class="active">Je hebt Javascript nodig om dit project te zien.</div>
+    <div class="start-container">
+        <div class="start-text">
+            <h1 class="title">Space kiwi</h1>
+            <p class="subtitle">Ga op ontdekking in de ruimte!</p>
+        </div>
+        <div class="buttons-start">
+            <p class="start-button">Start spel</p>
+            <p class="instructions-button">Instructies</p>
+            <p class="story-button">Verhaal</p>
+        </div>
+    </div> 
+    <div class="instructions-container">
+        <p class="back-button">Terug</p>
+        <div class="buttons-instructions">
+            <p class="start-button">Start spel</p>
+            <p class="story-button">Verhaal</p>
+        </div>
+    </div>
+    <div class="game-container" id="world">
+        <div class="info">
+        <p class="heightStyle">Hoogte: <span id="height"></span> km</p>
+        <p class="timeStyle">Tijd: <span id="minutes"></span>.<span id="seconds"></span> min</p>
+    </div>
         <div id="myModalFact" class="modal">
             <div class="modal-content">
                 <h2>Wist je datje</h2>
@@ -50,6 +74,12 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div class="certificate-container">
+        <p>Dit is het vliegbrevet</p>
+    </div>
+    <div class="lost-container">
+        <p>Dit is het verlies-scherm</p>
     </div>
     <script type="text/javascript" src="assets/data.json"></script>
     <script src="js/three.js"></script>
