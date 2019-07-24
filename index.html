@@ -24,7 +24,7 @@
             <p class="story-button">Verhaal</p>
         </div>
     </div> 
-    <div class="instructions-container">
+    <div class="instructions-container" id="instruction-world">
         <p class="back-button">Terug</p>
         <div class="buttons-instructions">
             <p class="start-button">Start spel</p>
@@ -75,8 +75,18 @@
             </div>
         </div>
     </div>
-    <div class="certificate-container">
-        <p>Dit is het vliegbrevet</p>
+    <div class="certificate-container" id="certificate-world">
+        <div class="certificate-content">
+            <h2>Proficiat!</h2>
+            <p class="certificate-congratz">Je hebt de vraag juist beantwoord en het vliegbrevet behaald!</p>
+            <p class="certificate-time">Jouw tijd: 1.03min</p>
+            <p class="certificate-best">Beste tijd: 0.96min</p>
+        </div>
+        <img class="rosette" src="assets/img/rosette.svg" width="285" height="235" alt="rosette">
+        <div class="buttons-certificate">
+            <p class="start-button">Opnieuw spelen</p>
+            <p class="menu-button">Menu</p>
+        </div>
     </div>
     <div class="lost-container">
         <p>Dit is het verlies-scherm</p>
@@ -85,5 +95,6 @@
     <script src="js/three.js"></script>
     <script src="js/index.js" type="module"></script>
     <script src="js/game.js" type="module"></script>
+    <script src="js/certificate.js" type="module"></script>
 </body>
 </html>

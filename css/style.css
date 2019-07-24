@@ -257,3 +257,101 @@ body {
 .answer > img, .close > img {
     margin-right: .7rem;
 }
+
+.certificate-container {
+    background: url('../assets/img/background-circles-17.svg') 6.4rem 3.7rem, url('../assets/img/background-certificate.jpg');
+    background-size: 67.5rem auto, cover;
+    background-repeat: no-repeat, no-repeat;
+}
+
+.certificate-content {
+    background-image: linear-gradient(to right, #40AAAB, #1587C0, #4D4882);
+    width: 28rem;
+    height: 28rem;
+    border-radius: 50%;
+
+    margin-left: 14rem;
+    margin-top: 6.5rem;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    
+}
+
+.certificate-content > h2 {
+    font-family: "Janda Mantee";
+    font-size: 3.3rem;
+    color: white;
+    text-shadow: 0.15rem 0.15rem #160D3F;
+    text-align: center;
+    margin-bottom: -2.8rem;
+}
+
+.certificate-congratz {
+    font-family: "Care Bears";
+    font-size: 1.8rem;
+    color: white;
+    text-align: center;
+    width: 23rem;
+    line-height: 2.2rem;
+}
+
+.certificate-time {
+    font-family: "Janda Mantee";
+    font-size: 1.8rem;
+    color: white;
+    text-align: center;
+    margin-top: -2.5rem;
+}
+
+.certificate-best {
+    font-family: "Janda Mantee";
+    font-size: 1.5rem;
+    color: white;
+    text-align: center;
+    margin-top: -4rem;
+}
+
+.rosette {
+    margin-top: -4.5rem;
+    margin-left: 9.5rem;
+}
+
+.certificate-container > canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.buttons-certificate {
+    font-family: "Janda Mantee";
+    font-size: 2.5rem;
+    color: white;
+    text-shadow: 0.15rem 0.15rem #160D3F;
+    position: absolute;
+    right: 9rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 32%;
+    margin-top: -5rem;
+}
+
+.menu-button::before {
+    content: '';
+    display: block;
+
+    background-repeat: no-repeat;
+    width: 7rem;
+    height: 7rem;
+    margin-bottom: -3.7rem;
+    margin-left: -3.5rem;
+    z-index: -10;
+
+}
+
+.menu-button::before {
+    background: url('../assets/img/option04.svg');
+}
