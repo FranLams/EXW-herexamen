@@ -190,6 +190,14 @@ body {
     padding-right: 5rem;
 }
 
+.bestTimeStyle {
+    font-family: "Janda Mantee";
+    font-size: 2.2rem;
+    color: white;
+    padding-top: .9rem;
+    padding-right: 5rem;
+}
+
 .modal {
     display: none;
     position: fixed;
