@@ -272,7 +272,7 @@ body {
     background-repeat: no-repeat, no-repeat;
 }
 
-.certificate-content {
+.certificate-content, .lost-content {
     background-image: linear-gradient(to right, #40AAAB, #1587C0, #4D4882);
     width: 28rem;
     height: 28rem;
@@ -288,7 +288,7 @@ body {
     
 }
 
-.certificate-content > h2 {
+.certificate-content > h2, .lost-content > h2 {
     font-family: "Janda Mantee";
     font-size: 3.3rem;
     color: white;
@@ -372,4 +372,40 @@ body {
 #question {
     text-align: center;
     line-height: 2.4rem;  
+}
+
+.lost-container {
+    background-image: url('../assets/img/background-lost.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    
+}
+
+.buttons-lost {
+    font-family: "Janda Mantee";
+    font-size: 2.5rem;
+    color: white;
+    text-shadow: 0.15rem 0.15rem #160D3F;
+    position: absolute;
+    right: 9rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+    height: 33vh;
+    width: 32%;
+    margin-top: -5rem;
+}
+
+
+.correct-answer {
+    display: flex;
+    flex-direction: column;
+    margin-top: -3.5rem;
+}
+
+#correct {
+    font-family: "Janda Mantee";
+    font-size: 2.2rem;
+    padding-top: .6rem;
 }
