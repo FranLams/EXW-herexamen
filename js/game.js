@@ -22,7 +22,9 @@ import Brainfood from "./classes/Brainfood.js";
     data = JSON.parse(facts),
     sec = 0,
     scoredMinutes,
-    scoredSeconds;
+    scoredSeconds,
+    savedMinutes = localStorage.getItem("minutes"),
+    savedSeconds = localStorage.getItem("seconds");
 
   const modalFact = document.getElementById("myModalFact");
   const modalQuestion = document.getElementById("myModalQuestion");
@@ -106,6 +108,8 @@ import Brainfood from "./classes/Brainfood.js";
 
     container = document.getElementById("world");
     container.appendChild(renderer.domElement);
+
+    showBestTime();
   };
 
   const applyDeadzone = (number, threshold) => {
@@ -275,8 +279,6 @@ import Brainfood from "./classes/Brainfood.js";
     document.getElementsByClassName(
       "certificate-time__seconds"
     )[0].innerHTML = scoredSeconds;
-    let savedMinutes = localStorage.getItem("minutes");
-    let savedSeconds = localStorage.getItem("seconds");
 
     if (!savedMinutes || !savedSeconds) {
       //eerste keer dat het spel gespeeld wordt, local storage is leeg.
@@ -298,6 +300,15 @@ import Brainfood from "./classes/Brainfood.js";
       "certificate-best__seconds"
     )[0].innerHTML = localStorage.getItem("seconds");
   };
+
+  const showBestTime = () => {
+    let bestMinutes = document.getElementById("bestMinutes");
+    let bestSeconds = document.getElementById("bestSeconds");
+    bestMinutes.innerHTML = savedMinutes;
+    bestSeconds.innerHTML = savedSeconds;    
+  }
+
+  console.log(savedSeconds);
 
   const resetGame = () => {
     sec = 0;

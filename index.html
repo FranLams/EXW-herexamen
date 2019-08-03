@@ -34,28 +34,33 @@
       </div>
     </div>
     <div class="game-container" id="world">
-      <div class="info">
-        <p class="heightStyle">Hoogte: <span id="height"></span> km</p>
-        <p class="timeStyle">
-          Tijd: <span id="minutes"></span>.<span id="seconds"></span> min
-        </p>
-      </div>
-      <div id="myModalFact" class="modal">
-        <div class="modal-content">
-          <h2>Wist je datje</h2>
-          <p id="fact"></p>
-          <div class="close">
-            <img
-              src="assets/img/circle.png"
-              width="35"
-              height="35"
-              alt="circle button"
-            />
-            <p>Sluiten</p>
-          </div>
+        <div class="info">
+            <p class="heightStyle">Hoogte: <span id="height"></span> km</p>
+            <div>
+                <p class="timeStyle">
+                    Tijd: <span id="minutes"></span>.<span id="seconds"></span> min
+                </p>
+                <p class="bestTimeStyle">
+                    Beste: <span id="bestMinutes"></span>.<span id="bestSeconds"></span> min
+                </p>
+            </div>
         </div>
-      </div>
-      <div id="myModalQuestion" class="modal">
+        <div id="myModalFact" class="modal">
+            <div class="modal-content">
+                <h2>Wist je datje</h2>
+                <p id="fact"></p>
+                <div class="close">
+                    <img
+                    src="assets/img/circle.png"
+                    width="35"
+                    height="35"
+                    alt="circle button"
+                    />
+                    <p>Sluiten</p>
+                </div>
+            </div>
+        </div>
+        <div id="myModalQuestion" class="modal">
         <div class="modal-content">
           <h2>De beslissende vraag...</h2>
           <p id="question"></p>
