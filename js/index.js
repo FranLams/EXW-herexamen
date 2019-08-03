@@ -5,6 +5,7 @@
     const $start = document.querySelector(`.start-container`);
     const $instructions = document.querySelector(`.instructions-container`);
     const $game = document.querySelector(`.game-container`);
+    const $certificate = document.querySelector(`.certificate-container`);
     
     const init = () => {
         switchScreen($standardMessage, $start);
@@ -46,6 +47,13 @@
             };
             if(triangle.pressed && $instructions.classList.contains('active')){
                 switchScreen($instructions, $start);
+            };
+
+            if(cross.pressed && $certificate.classList.contains('active')){
+                switchScreen($certificate, $game);
+            };
+            if(triangle.pressed && $certificate.classList.contains('active')){
+                switchScreen($certificate, $start);
             };
         }
     }
