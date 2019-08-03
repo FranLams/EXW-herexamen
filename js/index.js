@@ -6,6 +6,7 @@
     const $instructions = document.querySelector(`.instructions-container`);
     const $game = document.querySelector(`.game-container`);
     const $certificate = document.querySelector(`.certificate-container`);
+    const $lost = document.querySelector(`.lost-container`);
     
     const init = () => {
         switchScreen($standardMessage, $start);

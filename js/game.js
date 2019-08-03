@@ -32,6 +32,7 @@ import Brainfood from "./classes/Brainfood.js";
   const $height = document.getElementById("height");
   const needJs = document.getElementById("hidden");
   const $start = document.querySelector(`.start-container`);
+  const $correct = document.getElementById("correct");
 
   const $fact = document.getElementById("fact");
   const $question = document.getElementById("question");
@@ -433,6 +434,7 @@ import Brainfood from "./classes/Brainfood.js";
         setModalQuestion();
         scoredMinutes = document.getElementById("minutes").innerHTML;
         scoredSeconds = document.getElementById("seconds").innerHTML;
+        correct.innerHTML = data.question.facts[0].correctAnswer;
         hasCollided = true;
       }
 
