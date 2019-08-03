@@ -1,100 +1,147 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="shortcut icon" type="image/png" href="assets/img/favi.png"/>
-   
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="shortcut icon" type="image/png" href="assets/img/favi.png" />
+
     <title>Space kiwi</title>
 
-    <link rel="stylesheet" href="css/reset.css">
-    <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
-    <div id="hidden" class="active">Je hebt Javascript nodig om dit project te zien.</div>
+    <link rel="stylesheet" href="css/reset.css" />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <div id="hidden" class="active">
+      Je hebt Javascript nodig om dit project te zien.
+    </div>
     <div class="start-container">
-        <div class="start-text">
-            <h1 class="title">Space kiwi</h1>
-            <p class="subtitle">Ga op ontdekking in de ruimte!</p>
-        </div>
-        <div class="buttons-start">
-            <p class="start-button">Start spel</p>
-            <p class="instructions-button">Instructies</p>
-            <p class="story-button">Verhaal</p>
-        </div>
-    </div> 
+      <div class="start-text">
+        <h1 class="title">Space kiwi</h1>
+        <p class="subtitle">Ga op ontdekking in de ruimte!</p>
+      </div>
+      <div class="buttons-start">
+        <p class="start-button">Start spel</p>
+        <p class="instructions-button">Instructies</p>
+        <p class="story-button">Verhaal</p>
+      </div>
+    </div>
     <div class="instructions-container" id="instruction-world">
-        <p class="back-button">Terug</p>
-        <div class="buttons-instructions">
-            <p class="start-button">Start spel</p>
-            <p class="story-button">Verhaal</p>
-        </div>
+      <p class="back-button">Terug</p>
+      <div class="buttons-instructions">
+        <p class="start-button">Start spel</p>
+        <p class="story-button">Verhaal</p>
+      </div>
     </div>
     <div class="game-container" id="world">
-        <div class="info">
+      <div class="info">
         <p class="heightStyle">Hoogte: <span id="height"></span> km</p>
-        <p class="timeStyle">Tijd: <span id="minutes"></span>.<span id="seconds"></span> min</p>
-    </div>
-        <div id="myModalFact" class="modal">
-            <div class="modal-content">
-                <h2>Wist je datje</h2>
-                <p id="fact"></p>
-                <div class="close">
-                    <img src="assets/img/circle.png" width="35" height="35" alt="circle button">
-                    <p>Sluiten</p>
-                </div>
-            </div>
+        <p class="timeStyle">
+          Tijd: <span id="minutes"></span>.<span id="seconds"></span> min
+        </p>
+      </div>
+      <div id="myModalFact" class="modal">
+        <div class="modal-content">
+          <h2>Wist je datje</h2>
+          <p id="fact"></p>
+          <div class="close">
+            <img
+              src="assets/img/circle.png"
+              width="35"
+              height="35"
+              alt="circle button"
+            />
+            <p>Sluiten</p>
+          </div>
         </div>
-        <div id="myModalQuestion" class="modal">
-            <div class="modal-content">
-                <h2>De beslissende vraag...</h2>
-                <p id="question"></p>
-                <div class="allAnswers">
-                    <div>
-                        <div class="answer">
-                            <img src="assets/img/square.png" width="35" height="35" alt="square button">
-                            <p id="answer1"></p>
-                        </div>
-                        <div class="answer">
-                            <img src="assets/img/triangle.png" width="35" height="35" alt="triangle button">
-                            <p id="answer2"></p>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="answer">
-                            <img src="assets/img/circle.png" width="35" height="35" alt="circle button">
-                            <p id="answer3"></p>
-                        </div>
-                        <div class="answer">
-                            <img src="assets/img/cross.png" width="35" height="35" alt="cross button">
-                            <p id="answer4"></p>
-                        </div>
-                    </div>
-                </div>
+      </div>
+      <div id="myModalQuestion" class="modal">
+        <div class="modal-content">
+          <h2>De beslissende vraag...</h2>
+          <p id="question"></p>
+          <div class="allAnswers">
+            <div>
+              <div class="answer">
+                <img
+                  src="assets/img/square.png"
+                  width="35"
+                  height="35"
+                  alt="square button"
+                />
+                <p id="answer1"></p>
+              </div>
+              <div class="answer">
+                <img
+                  src="assets/img/triangle.png"
+                  width="35"
+                  height="35"
+                  alt="triangle button"
+                />
+                <p id="answer2"></p>
+              </div>
             </div>
+            <div>
+              <div class="answer">
+                <img
+                  src="assets/img/circle.png"
+                  width="35"
+                  height="35"
+                  alt="circle button"
+                />
+                <p id="answer3"></p>
+              </div>
+              <div class="answer">
+                <img
+                  src="assets/img/cross.png"
+                  width="35"
+                  height="35"
+                  alt="cross button"
+                />
+                <p id="answer4"></p>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
     <div class="certificate-container" id="certificate-world">
-        <div class="certificate-content">
-            <h2>Proficiat!</h2>
-            <p class="certificate-congratz">Je hebt de vraag juist beantwoord en het vliegbrevet behaald!</p>
-            <p class="certificate-time">Jouw tijd: 1.03min</p>
-            <p class="certificate-best">Beste tijd: 0.96min</p>
-        </div>
-        <img class="rosette" src="assets/img/rosette.svg" width="285" height="235" alt="rosette">
-        <div class="buttons-certificate">
-            <p class="start-button">Opnieuw spelen</p>
-            <p class="menu-button">Menu</p>
-        </div>
+      <div class="certificate-content">
+        <h2>Proficiat!</h2>
+        <p class="certificate-congratz">
+          Je hebt de vraag juist beantwoord en het vliegbrevet behaald!
+        </p>
+        <p class="certificate-time">
+          Tijd: <span class="certificate-time__minutes"></span>.<span
+            class="certificate-time__seconds"
+          ></span>
+          min
+        </p>
+        <p class="certificate-best">
+          Beste tijd: <span class="certificate-best__minutes"></span>.<span
+            class="certificate-best__seconds"
+          ></span>
+          min
+        </p>
+      </div>
+      <img
+        class="rosette"
+        src="assets/img/rosette.svg"
+        width="285"
+        height="235"
+        alt="rosette"
+      />
+      <div class="buttons-certificate">
+        <p class="start-button">Opnieuw spelen</p>
+        <p class="menu-button">Menu</p>
+      </div>
     </div>
     <div class="lost-container">
-        <p>Dit is het verlies-scherm</p>
+      <p>Dit is het verlies-scherm</p>
     </div>
     <script type="text/javascript" src="assets/data.json"></script>
     <script src="js/three.js"></script>
     <script src="js/index.js" type="module"></script>
     <script src="js/game.js" type="module"></script>
     <script src="js/certificate.js" type="module"></script>
-</body>
+  </body>
 </html>
