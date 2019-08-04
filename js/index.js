@@ -56,6 +56,13 @@
             if(triangle.pressed && $certificate.classList.contains('active')){
                 switchScreen($certificate, $start);
             };
+
+            if(cross.pressed && $lost.classList.contains('active')){
+                switchScreen($lost, $game);
+            };
+            if(triangle.pressed && $lost.classList.contains('active')){
+                switchScreen($lost, $start);
+            };
         }
     }
 
