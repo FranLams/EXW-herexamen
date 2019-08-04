@@ -368,6 +368,9 @@ import Brainfood from "./classes/Brainfood.js";
       const square = gamepad.buttons[2];
       const triangle = gamepad.buttons[3];
 
+      const triggerLeft = gamepad.buttons[6];
+      const triggerRight = gamepad.buttons[7];
+
       if (Math.round(kiwi.mesh.position.y) > 2400) {
         $height.innerHTML = Math.round(kiwi.mesh.position.y * 3.33);
       } else if (Math.round(kiwi.mesh.position.y) > 1800) {
@@ -413,15 +416,15 @@ import Brainfood from "./classes/Brainfood.js";
         camera.position.y = kiwi.mesh.position.y + 30;
 
         if (joystickRightY > 0 && joystickLeftY > 0) {
-          kiwi.mesh.position.y += 1.7;
+          kiwi.mesh.position.y += 1.8;
           kiwi.fireLeft();
           kiwi.fireRight();
         } else if (joystickRightY > 0 && joystickLeftY <= 0) {
-          kiwi.mesh.position.y += 1.2;
+          kiwi.mesh.position.y += 1.6;
           kiwi.mesh.position.x -= 0.8;
           kiwi.fireRight();
         } else if (joystickLeftY > 0 && joystickRightY <= 0) {
-          kiwi.mesh.position.y += 1.2;
+          kiwi.mesh.position.y += 1.6;
           kiwi.mesh.position.x += 0.8;
           kiwi.fireLeft();
         } else if (kiwi.mesh.position.y > 0) {
@@ -448,6 +451,14 @@ import Brainfood from "./classes/Brainfood.js";
       if (circle.pressed && hasCollided) {
         modalFact.style.display = "none";
         hasCollided = false;
+      }
+
+      if (triggerLeft.value > 0 && triggerRight.value > 0 && kiwi.mesh.position.y > 0) {
+        kiwi.mesh.scale.set(.85, .85, .85)
+        kiwi.mesh.position.y -=  1;
+
+      } else {
+        kiwi.mesh.scale.set(.8, .8, .8)
       }
     }
 
