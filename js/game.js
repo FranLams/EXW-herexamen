@@ -40,6 +40,7 @@ import Brainfood from "./classes/Brainfood.js";
   const $answer2 = document.getElementById("answer2");
   const $answer3 = document.getElementById("answer3");
   const $answer4 = document.getElementById("answer4");
+  const $catched = document.getElementById("catched");
 
   const init = () => {
     createScene();
@@ -94,7 +95,7 @@ import Brainfood from "./classes/Brainfood.js";
     aspectRatio = WIDTH / HEIGHT;
     fieldOfView = 60;
     camera = new THREE.PerspectiveCamera(fieldOfView, aspectRatio);
-    camera.position.x = 0;
+    camera.position.x = -12;
     camera.position.y = 30;
     camera.position.z = 150;
 
@@ -165,9 +166,14 @@ import Brainfood from "./classes/Brainfood.js";
     for (let i = 0, l = worms.length; i < l; i++) {
       if (animalPos.distanceTo(worms[i].mesh.position) <= 30) {
         handleCollision(worms[i]);
+        countUpWorms();
       }
     }
   };
+
+  const countUpWorms = () => {
+    catched.innerHTML++
+  }
 
   const handleCollision = currentWorm => {
     hasCollided = true;
@@ -315,6 +321,7 @@ import Brainfood from "./classes/Brainfood.js";
     sec = 0;
     let minutes = document.getElementById("minutes");
     let seconds = document.getElementById("seconds");
+    catched.innerHTML = 0;
     seconds.innerHTML = 0;
     minutes.innerHTML = 0;
     scoredMinutes = null;
