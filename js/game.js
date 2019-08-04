@@ -1,5 +1,7 @@
 import Kiwi from "./classes/Kiwi.js";
 import Brainfood from "./classes/Brainfood.js";
+import Plane from "./classes/Plane.js";
+import Colors from "./classes/Colors.js";
 
 {
   let scene,
@@ -16,6 +18,8 @@ import Brainfood from "./classes/Brainfood.js";
     isGamepadConnected = false,
     kiwi,
     brainfood,
+    plane,
+    plane02,
     hasCollided,
     worms = [],
     haveWormsDropped = [false, false, false, false, false],
@@ -47,6 +51,8 @@ import Brainfood from "./classes/Brainfood.js";
     createLights();
     createKiwi();
     createBrainfood();
+    createPlane();
+    createSecondPlane();
     render();
   };
 
@@ -158,6 +164,23 @@ import Brainfood from "./classes/Brainfood.js";
     scene.add(brainfood.mesh);
     return brainfood;
   };
+
+  const createPlane = () => {
+    plane = new Plane();
+    plane.mesh.scale.set(0.5, 0.5, 0.5);
+    plane.mesh.position.x = -250;
+    plane.mesh.position.y = 20;
+    scene.add(plane.mesh);
+  };
+
+  const createSecondPlane = () => {
+    plane02 = new Plane();
+    plane02.mesh.scale.set(0.55, 0.55, 0.55);
+    plane02.mesh.position.x = 250;
+    plane02.mesh.position.y = 40;
+    plane02.mesh.rotation.y = 3;
+    scene.add(plane02.mesh);
+  }
 
   const doAnimalLogic = () => {
     const animalPos = new THREE.Vector3();
@@ -353,6 +376,19 @@ import Brainfood from "./classes/Brainfood.js";
   const render = () => {
     doAnimalLogic();
     requestAnimationFrame(render);
+
+    if (kiwi.mesh.position.y > 110) {
+      plane.mesh.position.x = plane.mesh.position.x+ .4;
+      plane.mesh.position.y = 360;
+    }
+
+    if (kiwi.mesh.position.y > 190) {
+      plane02.mesh.position.x = plane02.mesh.position.x - .5;
+      plane02.mesh.position.y = 450;
+    }
+
+    plane.propeller.rotation.x += 0.3;
+    plane02.propeller.rotation.x += 0.4;
 
     //Stel de aangesloten gamepad in
     if (isGamepadConnected) {
