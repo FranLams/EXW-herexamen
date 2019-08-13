@@ -7,6 +7,7 @@
     const $game = document.querySelector(`.game-container`);
     const $certificate = document.querySelector(`.certificate-container`);
     const $lost = document.querySelector(`.lost-container`);
+    const $crashed = document.querySelector(`.crashed-container`);
     
     const init = () => {
         switchScreen($standardMessage, $start);
@@ -62,6 +63,13 @@
             };
             if(triangle.pressed && $lost.classList.contains('active')){
                 switchScreen($lost, $start);
+            };
+
+            if(cross.pressed && $crashed.classList.contains('active')){
+                switchScreen($crashed, $game);
+            };
+            if(triangle.pressed && $crashed.classList.contains('active')){
+                switchScreen($crashed, $start);
             };
         }
     }

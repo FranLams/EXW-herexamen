@@ -28,7 +28,9 @@ import Colors from "./classes/Colors.js";
     scoredMinutes,
     scoredSeconds,
     savedMinutes = localStorage.getItem("minutes"),
-    savedSeconds = localStorage.getItem("seconds");
+    savedSeconds = localStorage.getItem("seconds"),
+    factList = [],
+    randomQuestion;
 
   const modalFact = document.getElementById("myModalFact");
   const modalQuestion = document.getElementById("myModalQuestion");
@@ -46,6 +48,8 @@ import Colors from "./classes/Colors.js";
   const $answer4 = document.getElementById("answer4");
   const $catched = document.getElementById("catched");
 
+  const $game = document.querySelector(`.game-container`);
+
   const init = () => {
     createScene();
     createLights();
@@ -53,6 +57,7 @@ import Colors from "./classes/Colors.js";
     createBrainfood();
     createPlane();
     createSecondPlane();
+    initFactList();
     render();
   };
 
@@ -180,7 +185,31 @@ import Colors from "./classes/Colors.js";
     plane02.mesh.position.y = 40;
     plane02.mesh.rotation.y = 3;
     scene.add(plane02.mesh);
-  }
+  };
+
+  const doPlaneLogic = () => {
+    const planePos = new THREE.Vector3();
+    planePos.setFromMatrixPosition(kiwi.mesh.matrixWorld);
+
+    if (planePos.distanceTo(plane.mesh.position) <= 52) {
+        const $crashed = document.querySelector(`.crashed-container`);
+        const $game = document.querySelector(`.game-container`);
+        $game.classList.remove(`active`);
+        $crashed.classList.add(`active`);
+        resetGame();
+      }
+
+    const planePos02 = new THREE.Vector3();
+    planePos02.setFromMatrixPosition(kiwi.mesh.matrixWorld);
+  
+    if (planePos02.distanceTo(plane02.mesh.position) <= 52) {
+        const $crashed = document.querySelector(`.crashed-container`);
+        const $game = document.querySelector(`.game-container`);
+        $game.classList.remove(`active`);
+        $crashed.classList.add(`active`);
+        resetGame();
+    }
+  };
 
   const doAnimalLogic = () => {
     const animalPos = new THREE.Vector3();
@@ -195,8 +224,8 @@ import Colors from "./classes/Colors.js";
   };
 
   const countUpWorms = () => {
-    catched.innerHTML++
-  }
+    catched.innerHTML++;
+  };
 
   const handleCollision = currentWorm => {
     hasCollided = true;
@@ -207,23 +236,51 @@ import Colors from "./classes/Colors.js";
       scene.remove(currentWorm.mesh);
     }
 
-    setModalFact(data[currentWorm.mesh.name]);
+    setModalFact(currentWorm.mesh.name);
 
     modalFact.style.display = "block";
   };
 
-  const setModalFact = atmosphereLayer => {
-    $fact.innerHTML = atmosphereLayer.facts[0];
+  const initFactList = () => {
+    factList.push(
+      data.troposfeer[Math.floor(Math.random() * data.troposfeer.length)]
+    );
+    factList.push(
+      data.stratosfeer[Math.floor(Math.random() * data.stratosfeer.length)]
+    );
+    factList.push(
+      data.mesosfeer[Math.floor(Math.random() * data.mesosfeer.length)]
+    );
+    factList.push(
+      data.thermosfeer[Math.floor(Math.random() * data.thermosfeer.length)]
+    );
+    factList.push(
+      data.exosfeer[Math.floor(Math.random() * data.exosfeer.length)]
+    );
+  };
+
+  const setModalFact = index => {
+    $fact.innerHTML = factList[index].fact;
+  };
+
+  const setRandomQuestion = () => {
+    randomQuestion = factList[Math.floor(Math.random() * factList.length)];
   };
 
   const setModalQuestion = () => {
     modalQuestion.style.display = "block";
-    $question.innerHTML = data.question.facts[0].fact;
-    $answer1.innerHTML = data.question.facts[0].answers[0];
-    $answer2.innerHTML = data.question.facts[0].answers[1];
-    $answer3.innerHTML = data.question.facts[0].answers[2];
-    $answer4.innerHTML = data.question.facts[0].answers[3];
+    hasCollided = true;
 
+    $question.innerHTML = randomQuestion.question;
+    $answer1.innerHTML = randomQuestion.answers[0];
+    $answer2.innerHTML = randomQuestion.answers[1];
+    $answer3.innerHTML = randomQuestion.answers[2];
+    $answer4.innerHTML = randomQuestion.answers[3];
+
+    correct.innerHTML = randomQuestion.correctAnswer;
+  };
+
+  const checkAnswer = () => {
     if (isGamepadConnected) {
       const gamepad = navigator.getGamepads()[0];
 
@@ -232,72 +289,65 @@ import Colors from "./classes/Colors.js";
       const square = gamepad.buttons[2];
       const triangle = gamepad.buttons[3];
 
-      const $game = document.querySelector(`.game-container`);
       const $certificate = document.querySelector(`.certificate-container`);
       const $lost = document.querySelector(`.lost-container`);
 
+      saveBestTime();
+
       if (square.pressed) {
         console.log("square pressed");
-        if (
-          data.question.facts[0].answers[0] ==
-          data.question.facts[0].correctAnswer
-        ) {
-          saveBestTime();
-          $game.classList.remove(`active`);
-          $certificate.classList.add(`active`);
-        } else {
-          $game.classList.remove(`active`);
-          $lost.classList.add(`active`);
-        }
-        resetGame();
+        setTimeout(() => {
+          if (randomQuestion.answers[0] == randomQuestion.correctAnswer) {
+            $game.classList.remove(`active`);
+            $certificate.classList.add(`active`);
+          } else {
+            $game.classList.remove(`active`);
+            $lost.classList.add(`active`);
+          }
+          resetGame();
+        }, 100);
       }
 
       if (triangle.pressed) {
         console.log("triangle pressed");
-        if (
-          data.question.facts[0].answers[1] ==
-          data.question.facts[0].correctAnswer
-        ) {
-          saveBestTime();
-          $game.classList.remove(`active`);
-          $certificate.classList.add(`active`);
-        } else {
-          $game.classList.remove(`active`);
-          $lost.classList.add(`active`);
-        }
-        resetGame();
+        setTimeout(() => {
+          if (randomQuestion.answers[1] == randomQuestion.correctAnswer) {
+            $game.classList.remove(`active`);
+            $certificate.classList.add(`active`);
+          } else {
+            $game.classList.remove(`active`);
+            $lost.classList.add(`active`);
+          }
+          resetGame();
+        }, 100);
       }
 
       if (circle.pressed) {
         console.log("circle pressed");
-        if (
-          data.question.facts[0].answers[2] ==
-          data.question.facts[0].correctAnswer
-        ) {
-          saveBestTime();
-          $game.classList.remove(`active`);
-          $certificate.classList.add(`active`);
-        } else {
-          $game.classList.remove(`active`);
-          $lost.classList.add(`active`);
-        }
-        resetGame();
+        setTimeout(() => {
+          if (randomQuestion.answers[2] == randomQuestion.correctAnswer) {
+            $game.classList.remove(`active`);
+            $certificate.classList.add(`active`);
+          } else {
+            $game.classList.remove(`active`);
+            $lost.classList.add(`active`);
+          }
+          resetGame();
+        }, 100);
       }
 
       if (cross.pressed) {
         console.log("cross pressed");
-        if (
-          data.question.facts[0].answers[3] ==
-          data.question.facts[0].correctAnswer
-        ) {
-          saveBestTime();
-          $game.classList.remove(`active`);
-          $certificate.classList.add(`active`);
-        } else {
-          $game.classList.remove(`active`);
-          $lost.classList.add(`active`);
-        }
-        resetGame();
+        setTimeout(() => {
+          if (randomQuestion.answers[3] == randomQuestion.correctAnswer) {
+            $game.classList.remove(`active`);
+            $certificate.classList.add(`active`);
+          } else {
+            $game.classList.remove(`active`);
+            $lost.classList.add(`active`);
+          }
+          resetGame();
+        }, 100);
       }
     }
   };
@@ -310,17 +360,16 @@ import Colors from "./classes/Colors.js";
       "certificate-time__seconds"
     )[0].innerHTML = scoredSeconds;
 
-    if (!savedMinutes || !savedSeconds) {
-      //eerste keer dat het spel gespeeld wordt, local storage is leeg.
-      localStorage.setItem("minutes", scoredMinutes);
-      localStorage.setItem("seconds", scoredSeconds);
-    } else if (
+    if (
+      !savedMinutes ||
+      !savedSeconds ||
       (scoredMinutes == savedMinutes && scoredSeconds < savedSeconds) ||
       scoredMinutes < savedMinutes
     ) {
-      //nieuw record
       localStorage.setItem("minutes", scoredMinutes);
       localStorage.setItem("seconds", scoredSeconds);
+      savedMinutes = scoredMinutes;
+      savedSeconds = scoredSeconds;
     }
 
     document.getElementsByClassName(
@@ -335,10 +384,8 @@ import Colors from "./classes/Colors.js";
     let bestMinutes = document.getElementById("bestMinutes");
     let bestSeconds = document.getElementById("bestSeconds");
     bestMinutes.innerHTML = savedMinutes;
-    bestSeconds.innerHTML = savedSeconds;    
-  }
-
-  console.log(savedSeconds);
+    bestSeconds.innerHTML = savedSeconds;
+  };
 
   const resetGame = () => {
     sec = 0;
@@ -349,14 +396,26 @@ import Colors from "./classes/Colors.js";
     minutes.innerHTML = 0;
     scoredMinutes = null;
     scoredSeconds = null;
+
+    plane.mesh.position.x = -250;
+    plane.mesh.position.y = 20;
+
+    plane02.mesh.position.x = 250;
+    plane02.mesh.position.y = 40;
+
+    kiwi.mesh.position.x = -10;
     kiwi.mesh.position.y = 0;
+    camera.position.y = kiwi.mesh.position.y + 30;
     modalQuestion.style.display = "none";
     for (let i = 0; i < worms.length; i++) {
       scene.remove(worms[i].mesh);
     }
     worms = [];
     haveWormsDropped = [false, false, false, false, false];
+    factList = [];
     hasCollided = false;
+    initFactList();
+    showBestTime();
   };
 
   const pad = val => {
@@ -374,16 +433,27 @@ import Colors from "./classes/Colors.js";
 
   //wordt 60 keer per seconde uitgevoerd
   const render = () => {
+    doPlaneLogic();
     doAnimalLogic();
     requestAnimationFrame(render);
 
+    if(kiwi.mesh.position.x < -160) {
+      kiwi.mesh.position.x = -160
+    }
+
+    if(kiwi.mesh.position.x > 135) {
+      kiwi.mesh.position.x = 135
+    }
+
+    console.log(kiwi.mesh.position.x)
+
     if (kiwi.mesh.position.y > 110) {
-      plane.mesh.position.x = plane.mesh.position.x+ .4;
+      plane.mesh.position.x = plane.mesh.position.x + 0.4;
       plane.mesh.position.y = 360;
     }
 
     if (kiwi.mesh.position.y > 190) {
-      plane02.mesh.position.x = plane02.mesh.position.x - .5;
+      plane02.mesh.position.x = plane02.mesh.position.x - 0.5;
       plane02.mesh.position.y = 450;
     }
 
@@ -391,7 +461,7 @@ import Colors from "./classes/Colors.js";
     plane02.propeller.rotation.x += 0.4;
 
     //Stel de aangesloten gamepad in
-    if (isGamepadConnected) {
+    if (isGamepadConnected && $game.classList.contains("active")) {
       const gamepad = navigator.getGamepads()[0];
 
       const joystickLeftX = applyDeadzone(gamepad.axes[0], 0.25);
@@ -422,23 +492,23 @@ import Colors from "./classes/Colors.js";
       }
 
       if (kiwi.mesh.position.y > 100 && !haveWormsDropped[0]) {
-        worms.push(createBrainfood(350, "troposfeer"));
+        worms.push(createBrainfood(350, "0"));
         haveWormsDropped[0] = true;
       }
       if (kiwi.mesh.position.y > 850 && !haveWormsDropped[1]) {
-        worms.push(createBrainfood(1000, "stratosfeer"));
+        worms.push(createBrainfood(1000, "1"));
         haveWormsDropped[1] = true;
       }
       if (kiwi.mesh.position.y > 1400 && !haveWormsDropped[2]) {
-        worms.push(createBrainfood(1600, "mesosfeer"));
+        worms.push(createBrainfood(1600, "2"));
         haveWormsDropped[2] = true;
       }
       if (kiwi.mesh.position.y > 1900 && !haveWormsDropped[3]) {
-        worms.push(createBrainfood(2150, "thermosfeer"));
+        worms.push(createBrainfood(2150, "3"));
         haveWormsDropped[3] = true;
       }
       if (kiwi.mesh.position.y > 2400 && !haveWormsDropped[4]) {
-        worms.push(createBrainfood(2750, "exosfeer"));
+        worms.push(createBrainfood(2750, "4"));
         haveWormsDropped[4] = true;
       }
 
@@ -477,11 +547,13 @@ import Colors from "./classes/Colors.js";
       }
 
       if (kiwi.mesh.position.y > 3050) {
-        setModalQuestion();
         scoredMinutes = document.getElementById("minutes").innerHTML;
         scoredSeconds = document.getElementById("seconds").innerHTML;
-        correct.innerHTML = data.question.facts[0].correctAnswer;
-        hasCollided = true;
+        if (!hasCollided) {
+          setRandomQuestion();
+          setModalQuestion();
+        }
+        checkAnswer();
       }
 
       if (circle.pressed && hasCollided) {
@@ -489,12 +561,15 @@ import Colors from "./classes/Colors.js";
         hasCollided = false;
       }
 
-      if (triggerLeft.value > 0 && triggerRight.value > 0 && kiwi.mesh.position.y > 0) {
-        kiwi.mesh.scale.set(.85, .85, .85)
-        kiwi.mesh.position.y -=  1;
-
+      if (
+        triggerLeft.value > 0 &&
+        triggerRight.value > 0 &&
+        kiwi.mesh.position.y > 0
+      ) {
+        kiwi.mesh.scale.set(0.85, 0.85, 0.85);
+        kiwi.mesh.position.y -= 1;
       } else {
-        kiwi.mesh.scale.set(.8, .8, .8)
+        kiwi.mesh.scale.set(0.8, 0.8, 0.8);
       }
     }
 
