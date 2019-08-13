@@ -33,7 +33,7 @@ body {
     display: none;
 }
 
-.game-container, .start-container, .instructions-container, .certificate-container, .lost-container {
+.game-container, .start-container, .instructions-container, .certificate-container, .lost-container, .crashed-container {
     width: 100%;
     height: 100%;
   
@@ -41,7 +41,7 @@ body {
   
     opacity: 0;
     z-index: -200;
-  }
+}
   
 .active {
     opacity: 1;
@@ -87,7 +87,7 @@ body {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    width: 52%;
+    width: 38%;
     margin-left: 11.5rem;
     align-items: flex-end;
     height: 91vh;
@@ -322,6 +322,49 @@ body {
     margin-bottom: -2.8rem;
 }
 
+.planet01, .planet02, .planet03 {
+    position: absolute;
+    border-radius: 50%;
+}
+
+.planet01 {
+    right: 25rem;
+    top: 19rem;
+    width: 8rem;
+    height: 8rem;
+    background-image: linear-gradient(to right, #ED7761, #583974);
+    animation: mover 2.2s infinite  alternate; 
+}
+
+.planet02 {
+    right: 15rem;
+    top: 12rem;
+    width: 4.5rem;
+    height: 4.5rem;
+    background-image: linear-gradient(to right, #E7519B, #424A97);
+    animation: mover 2.1s infinite  alternate; 
+}
+
+.planet03 {
+    right: 30rem;
+    top: 9rem;
+    width: 2rem;
+    height: 2rem;
+    background-image: linear-gradient(to right, #DCAEA9, #6C64B1);
+    animation: mover 2s infinite  alternate; 
+}
+
+
+@keyframes mover {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-20px); }
+}
+
+.crash-content > h2 {
+    font-size: 4.2rem;
+    margin-bottom: -1rem;
+}
+
 .certificate-congratz {
     font-family: "Care Bears";
     font-size: 1.8rem;
@@ -382,7 +425,6 @@ body {
     margin-bottom: -3.7rem;
     margin-left: -3.5rem;
     z-index: -10;
-
 }
 
 .menu-button::before {
@@ -399,11 +441,10 @@ body {
     line-height: 2.4rem;  
 }
 
-.lost-container {
+.lost-container, .crashed-container {
     background-image: url('../assets/img/background-lost.jpg');
     background-size: cover;
     background-repeat: no-repeat;
-    
 }
 
 .buttons-lost {
@@ -433,4 +474,13 @@ body {
     font-family: "Janda Mantee";
     font-size: 2.2rem;
     padding-top: .6rem;
+}
+
+.crash {
+    font-size: 2.1rem;
+}
+
+#try-again {
+    font-size: 1.7rem;
+    margin-top: 1em;
 }
