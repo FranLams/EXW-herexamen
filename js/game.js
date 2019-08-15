@@ -32,6 +32,10 @@ import Colors from "./classes/Colors.js";
     factList = [],
     randomQuestion;
 
+  const backgroundMusic = document.getElementById("background-music");
+  const explosion = document.getElementById("explosion-sound");
+  const gameOver = document.getElementById("gameOver-sound");
+  const win = document.getElementById("win-sound");
   const modalFact = document.getElementById("myModalFact");
   const modalQuestion = document.getElementById("myModalQuestion");
   const $world = document.getElementById("world");
@@ -196,7 +200,18 @@ import Colors from "./classes/Colors.js";
         const $game = document.querySelector(`.game-container`);
         $game.classList.remove(`active`);
         $crashed.classList.add(`active`);
+        backgroundMusic.pause();
+        explosion.play();
         resetGame();
+        if (isGamepadConnected) {
+          const gamepad = navigator.getGamepads()[0];
+          gamepad.vibrationActuator.playEffect("dual-rumble", {
+              startDelay: 0,
+              duration: 500,
+              weakMagnitude: 1.0,
+              strongMagnitude: 1.0
+          });
+        }
       }
 
     const planePos02 = new THREE.Vector3();
@@ -207,7 +222,19 @@ import Colors from "./classes/Colors.js";
         const $game = document.querySelector(`.game-container`);
         $game.classList.remove(`active`);
         $crashed.classList.add(`active`);
+        backgroundMusic.pause();
+        explosion.play();
         resetGame();
+
+        if (isGamepadConnected) {
+          const gamepad = navigator.getGamepads()[0];
+          gamepad.vibrationActuator.playEffect("dual-rumble", {
+              startDelay: 0,
+              duration: 500,
+              weakMagnitude: 1.0,
+              strongMagnitude: 1.0
+          });
+        }
     }
   };
 
@@ -300,9 +327,13 @@ import Colors from "./classes/Colors.js";
           if (randomQuestion.answers[0] == randomQuestion.correctAnswer) {
             $game.classList.remove(`active`);
             $certificate.classList.add(`active`);
+            backgroundMusic.pause();
+            win.play();
           } else {
             $game.classList.remove(`active`);
             $lost.classList.add(`active`);
+            backgroundMusic.pause();
+            gameOver.play();
           }
           resetGame();
         }, 100);
@@ -314,9 +345,13 @@ import Colors from "./classes/Colors.js";
           if (randomQuestion.answers[1] == randomQuestion.correctAnswer) {
             $game.classList.remove(`active`);
             $certificate.classList.add(`active`);
+            backgroundMusic.pause();
+            win.play();
           } else {
             $game.classList.remove(`active`);
             $lost.classList.add(`active`);
+            backgroundMusic.pause();
+            gameOver.play();
           }
           resetGame();
         }, 100);
@@ -328,9 +363,13 @@ import Colors from "./classes/Colors.js";
           if (randomQuestion.answers[2] == randomQuestion.correctAnswer) {
             $game.classList.remove(`active`);
             $certificate.classList.add(`active`);
+            backgroundMusic.pause();
+            win.play();
           } else {
             $game.classList.remove(`active`);
             $lost.classList.add(`active`);
+            backgroundMusic.pause();
+            gameOver.play();
           }
           resetGame();
         }, 100);
@@ -342,9 +381,13 @@ import Colors from "./classes/Colors.js";
           if (randomQuestion.answers[3] == randomQuestion.correctAnswer) {
             $game.classList.remove(`active`);
             $certificate.classList.add(`active`);
+            backgroundMusic.pause();
+            win.play();
           } else {
             $game.classList.remove(`active`);
             $lost.classList.add(`active`);
+            backgroundMusic.pause();
+            gameOver.play();
           }
           resetGame();
         }, 100);
@@ -389,6 +432,7 @@ import Colors from "./classes/Colors.js";
 
   const resetGame = () => {
     sec = 0;
+    backgroundMusic.currentTime = 0;
     let minutes = document.getElementById("minutes");
     let seconds = document.getElementById("seconds");
     catched.innerHTML = 0;
@@ -525,6 +569,7 @@ import Colors from "./classes/Colors.js";
           kiwi.mesh.position.y += 1.8;
           kiwi.fireLeft();
           kiwi.fireRight();
+
         } else if (joystickRightY > 0 && joystickLeftY <= 0) {
           kiwi.mesh.position.y += 1.6;
           kiwi.mesh.position.x -= 0.8;
@@ -574,7 +619,7 @@ import Colors from "./classes/Colors.js";
     }
 
     renderer.render(scene, camera);
-  };
+  }; 
 
   init();
 }

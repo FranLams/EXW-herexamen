@@ -8,6 +8,7 @@
     const $certificate = document.querySelector(`.certificate-container`);
     const $lost = document.querySelector(`.lost-container`);
     const $crashed = document.querySelector(`.crashed-container`);
+    const backgroundMusic = document.getElementById("background-music");
     
     const init = () => {
         switchScreen($standardMessage, $start);
@@ -39,6 +40,8 @@
 
             if(cross.pressed && $start.classList.contains('active')){
                 switchScreen($start, $game);
+                backgroundMusic.play();
+                backgroundMusic.volume = 0.3;
             };
             if(square.pressed && $start.classList.contains('active')){
                 switchScreen($start, $instructions);
@@ -46,6 +49,8 @@
 
             if(cross.pressed && $instructions.classList.contains('active')){
                 switchScreen($instructions, $game);
+                backgroundMusic.play();
+                backgroundMusic.volume = 0.3;
             };
             if(triangle.pressed && $instructions.classList.contains('active')){
                 switchScreen($instructions, $start);
@@ -53,6 +58,8 @@
 
             if(cross.pressed && $certificate.classList.contains('active')){
                 switchScreen($certificate, $game);
+                backgroundMusic.play();
+                backgroundMusic.volume = 0.3;
             };
             if(triangle.pressed && $certificate.classList.contains('active')){
                 switchScreen($certificate, $start);
@@ -60,6 +67,8 @@
 
             if(cross.pressed && $lost.classList.contains('active')){
                 switchScreen($lost, $game);
+                backgroundMusic.play();
+                backgroundMusic.volume = 0.3;
             };
             if(triangle.pressed && $lost.classList.contains('active')){
                 switchScreen($lost, $start);
@@ -67,6 +76,8 @@
 
             if(cross.pressed && $crashed.classList.contains('active')){
                 switchScreen($crashed, $game);
+                backgroundMusic.play();
+                backgroundMusic.volume = 0.3;
             };
             if(triangle.pressed && $crashed.classList.contains('active')){
                 switchScreen($crashed, $start);
