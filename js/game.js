@@ -1,6 +1,8 @@
 import Kiwi from "./classes/Kiwi.js";
 import Brainfood from "./classes/Brainfood.js";
 import Plane from "./classes/Plane.js";
+import Meteor from "./classes/Meteor.js";
+import MeteorBlue from "./classes/MeteorBlue.js";
 import Colors from "./classes/Colors.js";
 
 {
@@ -20,6 +22,8 @@ import Colors from "./classes/Colors.js";
     brainfood,
     plane,
     plane02,
+    meteor,
+    meteorBlue,
     hasCollided,
     worms = [],
     haveWormsDropped = [false, false, false, false, false],
@@ -61,6 +65,8 @@ import Colors from "./classes/Colors.js";
     createBrainfood();
     createPlane();
     createSecondPlane();
+    createMeteor();
+    createSecondMeteor();
     initFactList();
     render();
   };
@@ -191,11 +197,71 @@ import Colors from "./classes/Colors.js";
     scene.add(plane02.mesh);
   };
 
+  const createMeteor = () => {
+    meteor = new Meteor();
+    meteor.mesh.scale.set(0.9, 0.9, 0.9);
+    meteor.mesh.position.x = -300;
+    meteor.mesh.position.y = 1500;
+    scene.add(meteor.mesh);
+  };
+
+  const createSecondMeteor = () => {
+    meteorBlue = new MeteorBlue();
+    meteorBlue.mesh.scale.set(0.9, 0.9, 0.9);
+    meteorBlue.mesh.position.x = 500;
+    meteorBlue.mesh.position.y = 1900;
+    scene.add(meteorBlue.mesh);
+  };
+
+  const doMeteorLogic = () => {
+    const meteorPos = new THREE.Vector3();
+    meteorPos.setFromMatrixPosition(kiwi.mesh.matrixWorld);
+
+    if (meteorPos.distanceTo(meteor.mesh.position) <= 45) {
+        const $crashed = document.querySelector(`.crashed-container`);
+        const $game = document.querySelector(`.game-container`);
+        $game.classList.remove(`active`);
+        $crashed.classList.add(`active`);
+        backgroundMusic.pause();
+        explosion.play();
+        resetGame();
+        if (isGamepadConnected) {
+          const gamepad = navigator.getGamepads()[0];
+          gamepad.vibrationActuator.playEffect("dual-rumble", {
+              startDelay: 0,
+              duration: 500,
+              weakMagnitude: 1.0,
+              strongMagnitude: 1.0
+          });
+        }
+      }
+
+      if (meteorPos.distanceTo(meteorBlue.mesh.position) <= 40) {
+        const $crashed = document.querySelector(`.crashed-container`);
+        const $game = document.querySelector(`.game-container`);
+        $game.classList.remove(`active`);
+        $crashed.classList.add(`active`);
+        backgroundMusic.pause();
+        explosion.play();
+        resetGame();
+        if (isGamepadConnected) {
+          const gamepad = navigator.getGamepads()[0];
+          gamepad.vibrationActuator.playEffect("dual-rumble", {
+              startDelay: 0,
+              duration: 500,
+              weakMagnitude: 1.0,
+              strongMagnitude: 1.0
+          });
+        }
+      }
+  };
+
+
   const doPlaneLogic = () => {
     const planePos = new THREE.Vector3();
     planePos.setFromMatrixPosition(kiwi.mesh.matrixWorld);
 
-    if (planePos.distanceTo(plane.mesh.position) <= 52) {
+    if (planePos.distanceTo(plane.mesh.position) <= 50) {
         const $crashed = document.querySelector(`.crashed-container`);
         const $game = document.querySelector(`.game-container`);
         $game.classList.remove(`active`);
@@ -217,7 +283,7 @@ import Colors from "./classes/Colors.js";
     const planePos02 = new THREE.Vector3();
     planePos02.setFromMatrixPosition(kiwi.mesh.matrixWorld);
   
-    if (planePos02.distanceTo(plane02.mesh.position) <= 52) {
+    if (planePos02.distanceTo(plane02.mesh.position) <= 50) {
         const $crashed = document.querySelector(`.crashed-container`);
         const $game = document.querySelector(`.game-container`);
         $game.classList.remove(`active`);
@@ -447,6 +513,12 @@ import Colors from "./classes/Colors.js";
     plane02.mesh.position.x = 250;
     plane02.mesh.position.y = 40;
 
+    meteor.mesh.position.x = -300;
+    meteor.mesh.position.y = 1500;
+
+    meteorBlue.mesh.position.x = 500;
+    meteorBlue.mesh.position.y = 1900;
+
     kiwi.mesh.position.x = -10;
     kiwi.mesh.position.y = 0;
     camera.position.y = kiwi.mesh.position.y + 30;
@@ -478,6 +550,7 @@ import Colors from "./classes/Colors.js";
   //wordt 60 keer per seconde uitgevoerd
   const render = () => {
     doPlaneLogic();
+    doMeteorLogic();
     doAnimalLogic();
     requestAnimationFrame(render);
 
@@ -489,12 +562,26 @@ import Colors from "./classes/Colors.js";
       kiwi.mesh.position.x = 135
     }
 
-    console.log(kiwi.mesh.position.x)
-
     if (kiwi.mesh.position.y > 110) {
       plane.mesh.position.x = plane.mesh.position.x + 0.4;
       plane.mesh.position.y = 360;
     }
+
+    console.log(kiwi.mesh.position.y);
+
+    if (kiwi.mesh.position.y > 1100) {
+      meteor.mesh.position.x = meteor.mesh.position.x + 1;
+      meteor.mesh.position.y = meteor.mesh.position.y - 0.5;
+      meteor.mesh.rotation.z = meteor.mesh.rotation.z - 0.06;
+    }
+
+    if (kiwi.mesh.position.y > 1350) {
+      meteorBlue.mesh.position.x = meteorBlue.mesh.position.x - .8;
+      meteorBlue.mesh.position.y = meteorBlue.mesh.position.y - 0.4;
+      meteorBlue.mesh.rotation.z = meteorBlue.mesh.rotation.z + 0.06;
+    }
+
+    console.log(meteor.mesh.position.y);
 
     if (kiwi.mesh.position.y > 190) {
       plane02.mesh.position.x = plane02.mesh.position.x - 0.5;
@@ -508,15 +595,10 @@ import Colors from "./classes/Colors.js";
     if (isGamepadConnected && $game.classList.contains("active")) {
       const gamepad = navigator.getGamepads()[0];
 
-      const joystickLeftX = applyDeadzone(gamepad.axes[0], 0.25);
       const joystickLeftY = applyDeadzone(gamepad.axes[1], 0.25);
-      const joystickRightX = applyDeadzone(gamepad.axes[2], 0.25);
       const joystickRightY = applyDeadzone(gamepad.axes[3], 0.25);
 
-      const cross = gamepad.buttons[0];
       const circle = gamepad.buttons[1];
-      const square = gamepad.buttons[2];
-      const triangle = gamepad.buttons[3];
 
       const triggerLeft = gamepad.buttons[6];
       const triggerRight = gamepad.buttons[7];
@@ -609,7 +691,8 @@ import Colors from "./classes/Colors.js";
       if (
         triggerLeft.value > 0 &&
         triggerRight.value > 0 &&
-        kiwi.mesh.position.y > 0
+        kiwi.mesh.position.y > 0 &&
+        kiwi.mesh.position.y < 3045
       ) {
         kiwi.mesh.scale.set(0.85, 0.85, 0.85);
         kiwi.mesh.position.y -= 1;
