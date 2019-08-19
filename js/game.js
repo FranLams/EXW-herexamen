@@ -3,6 +3,7 @@ import Brainfood from "./classes/Brainfood.js";
 import Plane from "./classes/Plane.js";
 import Meteor from "./classes/Meteor.js";
 import MeteorBlue from "./classes/MeteorBlue.js";
+import Fruit from "./classes/Fruit.js";
 import Colors from "./classes/Colors.js";
 
 {
@@ -22,6 +23,7 @@ import Colors from "./classes/Colors.js";
     brainfood,
     plane,
     plane02,
+    fruit,
     meteor,
     meteorBlue,
     hasCollided,
@@ -67,6 +69,7 @@ import Colors from "./classes/Colors.js";
     createSecondPlane();
     createMeteor();
     createSecondMeteor();
+    createFruit();
     initFactList();
     render();
   };
@@ -98,6 +101,7 @@ import Colors from "./classes/Colors.js";
   const createScene = () => {
     $height.innerHTML = 0;
     hasCollided = false;
+
     WIDTH = window.innerWidth;
     HEIGHT = window.innerHeight;
 
@@ -213,6 +217,23 @@ import Colors from "./classes/Colors.js";
     scene.add(meteorBlue.mesh);
   };
 
+  const createFruit = () => {
+    fruit = new Fruit();
+    fruit.mesh.scale.set(0.35, 0.35, 0.35);
+    fruit.mesh.position.x = 0;
+    fruit.mesh.position.y = 50;
+    fruit.mesh.position.z = 5;
+
+    let randomValueY = Math.round(Math.random() * .9);
+    randomValueY = randomValueY * 1;
+    let isNegative = Math.round(Math.random() * (1 - 0));
+    if (isNegative) {
+      randomValueY = -Math.abs(randomValueY);
+    }
+    fruit.mesh.rotation.y = randomValueY;
+    scene.add(fruit.mesh);
+  };
+
   const doMeteorLogic = () => {
     const meteorPos = new THREE.Vector3();
     meteorPos.setFromMatrixPosition(kiwi.mesh.matrixWorld);
@@ -255,7 +276,6 @@ import Colors from "./classes/Colors.js";
         }
       }
   };
-
 
   const doPlaneLogic = () => {
     const planePos = new THREE.Vector3();
@@ -567,8 +587,6 @@ import Colors from "./classes/Colors.js";
       plane.mesh.position.y = 360;
     }
 
-    console.log(kiwi.mesh.position.y);
-
     if (kiwi.mesh.position.y > 1100) {
       meteor.mesh.position.x = meteor.mesh.position.x + 1;
       meteor.mesh.position.y = meteor.mesh.position.y - 0.5;
@@ -580,8 +598,6 @@ import Colors from "./classes/Colors.js";
       meteorBlue.mesh.position.y = meteorBlue.mesh.position.y - 0.4;
       meteorBlue.mesh.rotation.z = meteorBlue.mesh.rotation.z + 0.06;
     }
-
-    console.log(meteor.mesh.position.y);
 
     if (kiwi.mesh.position.y > 190) {
       plane02.mesh.position.x = plane02.mesh.position.x - 0.5;
