@@ -58,6 +58,13 @@ body {
     height: 100vh;
 }
 
+.top-instructions > h2 {
+    font-family: "Janda Mantee";
+    color: white;
+    font-size: 4.2rem;
+    text-transform: uppercase;
+}
+
 .start-text {
     font-family: "Janda Mantee";
     color: white;
@@ -105,7 +112,17 @@ body {
     width: 30%;
     margin-left: 11.5rem;
     align-items: flex-end;
-    height: 76vh;
+    margin-top: 1.5rem;
+}
+
+.top-instructions {
+    padding-top: 6rem;
+    margin: 0 auto;
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .back-button {
@@ -113,12 +130,10 @@ body {
     font-size: 2.5rem;
     color: white;
     text-shadow: 0.15rem 0.15rem #160D3F;
-    width: 90%;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: flex-end;
-    margin-top: 4rem;
 }
 
 .back-button::before {
@@ -485,4 +500,37 @@ body {
 #try-again {
     font-size: 1.7rem;
     margin-top: 1em;
+}
+
+.instru-steps {
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    width: 80%;
+    justify-content: space-between;
+}
+
+.instru-step {
+    margin-top: 4rem;
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgba(22,13,63,0.2);
+    border-radius: 10%;
+}
+
+.instru-step > img {
+    width: 20rem;
+    margin-top: 3rem;
+    margin-bottom: 2rem;
+}
+
+.instru-step > p {
+    font-family: "Care Bears";
+    color: white;
+    font-size: 1.8rem;
+    text-align: center;
+    width: 18rem;
+    margin-bottom: 2rem;
 }

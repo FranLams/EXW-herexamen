@@ -575,6 +575,14 @@ import Colors from "./classes/Colors.js";
       scene.remove(worms[i].mesh);
     }
     worms = [];
+
+    for (let i = 0; i < fruits.length; i++) {
+      scene.remove(fruits[i].mesh);
+    }
+    fruits = [];
+
+    dropHeights = [100, 576, 1032, 1542, 1922, 2403];
+
     haveWormsDropped = [false, false, false, false, false];
     factList = [];
     hasCollided = false;
