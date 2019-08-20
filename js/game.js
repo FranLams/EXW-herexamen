@@ -23,11 +23,11 @@ import Colors from "./classes/Colors.js";
     brainfood,
     plane,
     plane02,
-    fruit,
     meteor,
     meteorBlue,
     hasCollided,
     worms = [],
+    fruits = [],
     haveWormsDropped = [false, false, false, false, false],
     data = JSON.parse(facts),
     sec = 0,
@@ -36,7 +36,9 @@ import Colors from "./classes/Colors.js";
     savedMinutes = localStorage.getItem("minutes"),
     savedSeconds = localStorage.getItem("seconds"),
     factList = [],
-    randomQuestion;
+    randomQuestion,
+    movementSpeedDouble = 1.8,
+    movementSpeedSingle = 1.6;
 
   const backgroundMusic = document.getElementById("background-music");
   const explosion = document.getElementById("explosion-sound");
@@ -69,7 +71,7 @@ import Colors from "./classes/Colors.js";
     createSecondPlane();
     createMeteor();
     createSecondMeteor();
-    createFruit();
+    createFruits();
     initFactList();
     render();
   };
@@ -217,64 +219,90 @@ import Colors from "./classes/Colors.js";
     scene.add(meteorBlue.mesh);
   };
 
-  const createFruit = () => {
-    fruit = new Fruit();
-    fruit.mesh.scale.set(0.35, 0.35, 0.35);
-    fruit.mesh.position.x = 0;
-    fruit.mesh.position.y = 50;
-    fruit.mesh.position.z = 5;
+  const createFruits = () => {
+    const dropHeights = [100, 576, 1032, 1542, 1922, 2403];
+    for (let i = 0, l = dropHeights.length; i < l; i++) {
+      let fruit = new Fruit();
+      fruit.mesh.scale.set(0.35, 0.35, 0.35);
+      fruit.mesh.position.y = dropHeights[i];
 
-    let randomValueY = Math.round(Math.random() * .9);
-    randomValueY = randomValueY * 1;
-    let isNegative = Math.round(Math.random() * (1 - 0));
-    if (isNegative) {
-      randomValueY = -Math.abs(randomValueY);
+      let randomValueX = Math.round(Math.random() * (WIDTH / 30));
+      let randomValueY = Math.round(Math.random() * .7);
+      randomValueY = randomValueY * 1;
+      randomValueX = randomValueX * 2;
+      let isNegative = Math.round(Math.random() * (1 - 0));
+      if (isNegative) {
+        randomValueX = -Math.abs(randomValueX);
+        randomValueY = -Math.abs(randomValueY);
+      }
+
+      fruit.mesh.rotation.y = randomValueY;
+      fruit.mesh.position.x = randomValueX;
+      fruit.mesh.position.z = 5;
+      scene.add(fruit.mesh);
+      fruits.push(fruit);
     }
-    fruit.mesh.rotation.y = randomValueY;
-    scene.add(fruit.mesh);
   };
+
+  const doFruitLogic = () => {
+    const fruitPos = new THREE.Vector3();
+    fruitPos.setFromMatrixPosition(kiwi.mesh.matrixWorld);
+
+    for (let i = 0, l = fruits.length; i < l; i++) {
+      if (fruitPos.distanceTo(fruits[i].mesh.position) <= 25) {
+        movementSpeedDouble = 3.6;
+        movementSpeedSingle = 3.2;
+        scene.remove(fruits[i].mesh);
+        setTimeout(() => {
+          movementSpeedDouble = 1.8;
+          movementSpeedSingle = 1.6;
+        }, 2000)
+      }
+    }
+  }
+
 
   const doMeteorLogic = () => {
     const meteorPos = new THREE.Vector3();
     meteorPos.setFromMatrixPosition(kiwi.mesh.matrixWorld);
 
     if (meteorPos.distanceTo(meteor.mesh.position) <= 45) {
-        const $crashed = document.querySelector(`.crashed-container`);
-        const $game = document.querySelector(`.game-container`);
-        $game.classList.remove(`active`);
-        $crashed.classList.add(`active`);
-        backgroundMusic.pause();
-        explosion.play();
-        resetGame();
-        if (isGamepadConnected) {
-          const gamepad = navigator.getGamepads()[0];
-          gamepad.vibrationActuator.playEffect("dual-rumble", {
-              startDelay: 0,
-              duration: 500,
-              weakMagnitude: 1.0,
-              strongMagnitude: 1.0
-          });
-        }
+      const $crashed = document.querySelector(`.crashed-container`);
+      const $game = document.querySelector(`.game-container`);
+      $game.classList.remove(`active`);
+      $crashed.classList.add(`active`);
+      backgroundMusic.pause();
+      explosion.play();
+      resetGame();
+      if (isGamepadConnected) {
+        const gamepad = navigator.getGamepads()[0];
+        gamepad.vibrationActuator.playEffect("dual-rumble", {
+          startDelay: 0,
+          duration: 500,
+          weakMagnitude: 1.0,
+          strongMagnitude: 1.0
+        });
       }
+    }
 
-      if (meteorPos.distanceTo(meteorBlue.mesh.position) <= 40) {
-        const $crashed = document.querySelector(`.crashed-container`);
-        const $game = document.querySelector(`.game-container`);
-        $game.classList.remove(`active`);
-        $crashed.classList.add(`active`);
-        backgroundMusic.pause();
-        explosion.play();
-        resetGame();
-        if (isGamepadConnected) {
-          const gamepad = navigator.getGamepads()[0];
-          gamepad.vibrationActuator.playEffect("dual-rumble", {
-              startDelay: 0,
-              duration: 500,
-              weakMagnitude: 1.0,
-              strongMagnitude: 1.0
-          });
-        }
+    if (meteorPos.distanceTo(meteorBlue.mesh.position) <= 40) {
+      const $crashed = document.querySelector(`.crashed-container`);
+      const $game = document.querySelector(`.game-container`);
+      $game.classList.remove(`active`);
+      $crashed.classList.add(`active`);
+      backgroundMusic.pause();
+      explosion.play();
+      resetGame();
+      if (isGamepadConnected) {
+        const gamepad = navigator.getGamepads()[0];
+        gamepad.vibrationActuator.playEffect("dual-rumble", {
+          startDelay: 0,
+          duration: 500,
+          weakMagnitude: 1.0,
+          strongMagnitude: 1.0
+        });
       }
+    }
   };
 
   const doPlaneLogic = () => {
@@ -282,45 +310,45 @@ import Colors from "./classes/Colors.js";
     planePos.setFromMatrixPosition(kiwi.mesh.matrixWorld);
 
     if (planePos.distanceTo(plane.mesh.position) <= 50) {
-        const $crashed = document.querySelector(`.crashed-container`);
-        const $game = document.querySelector(`.game-container`);
-        $game.classList.remove(`active`);
-        $crashed.classList.add(`active`);
-        backgroundMusic.pause();
-        explosion.play();
-        resetGame();
-        if (isGamepadConnected) {
-          const gamepad = navigator.getGamepads()[0];
-          gamepad.vibrationActuator.playEffect("dual-rumble", {
-              startDelay: 0,
-              duration: 500,
-              weakMagnitude: 1.0,
-              strongMagnitude: 1.0
-          });
-        }
+      const $crashed = document.querySelector(`.crashed-container`);
+      const $game = document.querySelector(`.game-container`);
+      $game.classList.remove(`active`);
+      $crashed.classList.add(`active`);
+      backgroundMusic.pause();
+      explosion.play();
+      resetGame();
+      if (isGamepadConnected) {
+        const gamepad = navigator.getGamepads()[0];
+        gamepad.vibrationActuator.playEffect("dual-rumble", {
+          startDelay: 0,
+          duration: 500,
+          weakMagnitude: 1.0,
+          strongMagnitude: 1.0
+        });
       }
+    }
 
     const planePos02 = new THREE.Vector3();
     planePos02.setFromMatrixPosition(kiwi.mesh.matrixWorld);
-  
-    if (planePos02.distanceTo(plane02.mesh.position) <= 50) {
-        const $crashed = document.querySelector(`.crashed-container`);
-        const $game = document.querySelector(`.game-container`);
-        $game.classList.remove(`active`);
-        $crashed.classList.add(`active`);
-        backgroundMusic.pause();
-        explosion.play();
-        resetGame();
 
-        if (isGamepadConnected) {
-          const gamepad = navigator.getGamepads()[0];
-          gamepad.vibrationActuator.playEffect("dual-rumble", {
-              startDelay: 0,
-              duration: 500,
-              weakMagnitude: 1.0,
-              strongMagnitude: 1.0
-          });
-        }
+    if (planePos02.distanceTo(plane02.mesh.position) <= 50) {
+      const $crashed = document.querySelector(`.crashed-container`);
+      const $game = document.querySelector(`.game-container`);
+      $game.classList.remove(`active`);
+      $crashed.classList.add(`active`);
+      backgroundMusic.pause();
+      explosion.play();
+      resetGame();
+
+      if (isGamepadConnected) {
+        const gamepad = navigator.getGamepads()[0];
+        gamepad.vibrationActuator.playEffect("dual-rumble", {
+          startDelay: 0,
+          duration: 500,
+          weakMagnitude: 1.0,
+          strongMagnitude: 1.0
+        });
+      }
     }
   };
 
@@ -558,7 +586,7 @@ import Colors from "./classes/Colors.js";
     return val > 9 ? val : "0" + val;
   };
 
-  const timer = setInterval(function() {
+  const timer = setInterval(function () {
     if ($world.classList.contains("active")) {
       let minutes = document.getElementById("minutes");
       let seconds = document.getElementById("seconds");
@@ -572,13 +600,14 @@ import Colors from "./classes/Colors.js";
     doPlaneLogic();
     doMeteorLogic();
     doAnimalLogic();
+    doFruitLogic();
     requestAnimationFrame(render);
 
-    if(kiwi.mesh.position.x < -160) {
+    if (kiwi.mesh.position.x < -160) {
       kiwi.mesh.position.x = -160
     }
 
-    if(kiwi.mesh.position.x > 135) {
+    if (kiwi.mesh.position.x > 135) {
       kiwi.mesh.position.x = 135
     }
 
@@ -664,17 +693,17 @@ import Colors from "./classes/Colors.js";
         camera.position.y = kiwi.mesh.position.y + 30;
 
         if (joystickRightY > 0 && joystickLeftY > 0) {
-          kiwi.mesh.position.y += 1.8;
+          kiwi.mesh.position.y += movementSpeedDouble;
           kiwi.fireLeft();
           kiwi.fireRight();
 
         } else if (joystickRightY > 0 && joystickLeftY <= 0) {
-          kiwi.mesh.position.y += 1.6;
-          kiwi.mesh.position.x -= 0.8;
+          kiwi.mesh.position.y += movementSpeedSingle;
+          kiwi.mesh.position.x -= movementSpeedSingle / 2;
           kiwi.fireRight();
         } else if (joystickLeftY > 0 && joystickRightY <= 0) {
-          kiwi.mesh.position.y += 1.6;
-          kiwi.mesh.position.x += 0.8;
+          kiwi.mesh.position.y += movementSpeedSingle;
+          kiwi.mesh.position.x += movementSpeedSingle / 2;
           kiwi.fireLeft();
         } else if (kiwi.mesh.position.y > 0) {
           kiwi.mesh.position.y -= 0.2;
@@ -718,7 +747,7 @@ import Colors from "./classes/Colors.js";
     }
 
     renderer.render(scene, camera);
-  }; 
+  };
 
   init();
 }
