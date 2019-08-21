@@ -141,6 +141,14 @@ import Colors from "./classes/Colors.js";
     showBestTime();
   };
 
+  const reportWindowSize = () => {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize( window.innerWidth, window.innerHeight );
+  }
+
+  window.onresize = reportWindowSize;
+
   const applyDeadzone = (number, threshold) => {
     let percentage = (Math.abs(number) - threshold) / (1 - threshold);
     if (percentage < 0) percentage = 0;
@@ -227,18 +235,15 @@ import Colors from "./classes/Colors.js";
       fruit.mesh.position.y = dropHeights[i];
 
       let randomValueX = Math.round(Math.random() * (WIDTH / 30));
-      let randomValueY = Math.round(Math.random() * .7);
-      randomValueY = randomValueY * 1;
       randomValueX = randomValueX * 2;
       let isNegative = Math.round(Math.random() * (1 - 0));
       if (isNegative) {
         randomValueX = -Math.abs(randomValueX);
-        randomValueY = -Math.abs(randomValueY);
       }
 
-      fruit.mesh.rotation.y = randomValueY;
       fruit.mesh.position.x = randomValueX;
       fruit.mesh.position.z = 5;
+      fruit.mesh.rotation.y += Math.random() * 3;
       scene.add(fruit.mesh);
       fruits.push(fruit);
     }
@@ -575,17 +580,17 @@ import Colors from "./classes/Colors.js";
       scene.remove(worms[i].mesh);
     }
     worms = [];
+    haveWormsDropped = [false, false, false, false, false];
 
     for (let i = 0; i < fruits.length; i++) {
       scene.remove(fruits[i].mesh);
     }
     fruits = [];
-
-    haveWormsDropped = [false, false, false, false, false];
     factList = [];
     hasCollided = false;
     initFactList();
     showBestTime();
+    createFruits();
   };
 
   const pad = val => {

@@ -7,6 +7,8 @@ import Kiwi from './classes/Kiwi.js';
     hemisphereLight, shadowLight, ambientLight, kiwi, isGamepadConnected = false, movementSpeedDouble = 1.8,
     movementSpeedSingle = 1.6;
 
+    const $control = document.querySelector(`.control-container`);
+
     const init = () => {
         createScene();
         createLights();
@@ -68,7 +70,7 @@ import Kiwi from './classes/Kiwi.js';
     const createKiwi = () => {
         kiwi = new Kiwi();
         kiwi.mesh.scale.set(.7,.7,.7);
-        kiwi.mesh.position.x = -26;
+        kiwi.mesh.position.x = -24;
         kiwi.mesh.position.y = -12;
         scene.add(kiwi.mesh);
     }
@@ -94,7 +96,7 @@ import Kiwi from './classes/Kiwi.js';
     const render = () => {
         requestAnimationFrame( render );
 
-        if (isGamepadConnected) {
+        if (isGamepadConnected && $control.classList.contains("active")) {
             const gamepad = navigator.getGamepads()[0];
       
             const joystickLeftY = applyDeadzone(gamepad.axes[1], 0.25);
@@ -104,6 +106,14 @@ import Kiwi from './classes/Kiwi.js';
             const triggerRight = gamepad.buttons[7];
 
             kiwi.reset();
+
+        if (kiwi.mesh.position.x < -(WIDTH/10)) {
+            kiwi.mesh.position.x = -(WIDTH/10)
+        }
+        
+        if (kiwi.mesh.position.x > WIDTH/10) {
+            kiwi.mesh.position.x = WIDTH/10
+        }
 
         if (joystickRightY > 0 && joystickLeftY > 0) {
             kiwi.mesh.position.y += movementSpeedDouble;

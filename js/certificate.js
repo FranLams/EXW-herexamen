@@ -16,10 +16,11 @@ import Brainfood from './classes/Brainfood.js';
     }
 
     const createScene = () => {
-        WIDTH = window.innerWidth;
-        HEIGHT = window.innerHeight;
+        WIDTH = 500;
+        HEIGHT = 500;
     
         scene = new THREE.Scene();
+
    
         aspectRatio = WIDTH / HEIGHT;
         fieldOfView = 60;
@@ -68,9 +69,9 @@ import Brainfood from './classes/Brainfood.js';
 
     const createKiwi = () => {
         kiwi = new Kiwi();
-        kiwi.mesh.scale.set(.9,.9,.9);
-        kiwi.mesh.position.x = 57;
-        kiwi.mesh.position.y = 28;
+        kiwi.mesh.scale.set(1.5,1.5,1.5);
+        kiwi.mesh.position.x = 50;
+        kiwi.mesh.position.y = 20;
         kiwi.mesh.rotation.y = -.2;
         kiwi.mesh.rotation.x = .1;
         kiwi.mesh.rotation.z = -.05;
@@ -79,9 +80,9 @@ import Brainfood from './classes/Brainfood.js';
 
     const createWorm = () => {
         worm = new Brainfood();
-        worm.mesh.scale.set(.8,.8,.8);
-        worm.mesh.position.x = 28;
-        worm.mesh.position.y = 50;
+        worm.mesh.scale.set(1.4,1.4,1.4);
+        worm.mesh.position.x = -5;
+        worm.mesh.position.y = 60;
         worm.mesh.rotation.y = .8;
         worm.mesh.rotation.x = .1;
         worm.mesh.rotation.z = .1;

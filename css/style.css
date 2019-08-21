@@ -1,39 +1,45 @@
 @font-face {
     font-family: "Janda Mantee";
     src: url("../assets/fonts/JandaManateeSolid.ttf");
-}
-
-@font-face {
+  }
+  
+  @font-face {
     font-family: "Care Bears";
     src: url("../assets/fonts/Care Bears Font.ttf");
-}
-
-body {
+  }
+  
+  body {
     margin: 0;
-    overflow-y:hidden;
+    overflow: hidden;
     background-color: rgb(159, 189, 204);
-}
-
-#container {
+  }
+  
+  #container {
     position: absolute;
     width: 100%;
     height: 100%;
     overflow: hidden;
-}
-
-#world > p {
-    background:transparent;
+  }
+  
+  #world > p {
+    background: transparent;
     position: absolute;
-
-    top:1rem;
-    left:1rem;
-}
-
-.hide {
+  
+    top: 1rem;
+    left: 1rem;
+  }
+  
+  .hide {
     display: none;
-}
-
-.game-container, .start-container, .instructions-container, .certificate-container, .lost-container, .crashed-container, .control-container {
+  }
+  
+  .game-container,
+  .start-container,
+  .instructions-container,
+  .certificate-container,
+  .lost-container,
+  .crashed-container,
+  .control-container{
     width: 100%;
     height: 100%;
   
@@ -41,22 +47,22 @@ body {
   
     opacity: 0;
     z-index: -200;
-}
+  }
   
-.active {
+  .active {
     opacity: 1;
     z-index: 200;
-}
-
-.start-container {
-    background: white url('../assets/img/background-menu.jpg');
+  }
+  
+  .start-container {
+    background: white url("../assets/img/background-menu.jpg");
     background-size: cover;
     background-repeat: none;
-
+  
     display: flex;
     flex-direction: column;
     height: 100vh;
-}
+  }
 
 .top-instructions > h2 {
     font-family: "Janda Mantee";
@@ -64,8 +70,8 @@ body {
     font-size: 4.2rem;
     text-transform: uppercase;
 }
-
-.start-text {
+  
+  .start-text {
     font-family: "Janda Mantee";
     color: white;
     margin-left: 11.5rem;
@@ -73,33 +79,37 @@ body {
     flex-direction: column;
     height: 45vh;
     justify-content: flex-end;
-}
-
-.title {
+  }
+  
+  .title {
     font-size: 7.5rem;
     text-transform: uppercase;
-    text-shadow: 0.25rem 0.25rem #F4B99E;
-}
-
-.subtitle {
+    text-shadow: 0.25rem 0.25rem #f4b99e;
+  }
+  
+  .subtitle {
     font-size: 2.5rem;
-}
-
-.buttons-start {
+  }
+  
+  .buttons-start {
     font-family: "Janda Mantee";
     font-size: 2.5rem;
     color: white;
-    text-shadow: 0.15rem 0.15rem #160D3F;
+    text-shadow: 0.15rem 0.15rem #160d3f;
     position: absolute;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
-    width: 36%;
-    margin-left: 11.5rem;
+    /* justify-content: space-between; */
+    width: 100%;
+    margin-left: 13rem;
+    bottom: 5rem;
     align-items: flex-end;
-    height: 91vh;
-}
-
+    height: 100vh;
+  }
+  .buttons-start > p {
+    margin-right: 8rem;
+  }
+  
 .buttons-instructions {
     font-family: "Janda Mantee";
     font-size: 2.5rem;
@@ -115,16 +125,7 @@ body {
     margin-top: 1.5rem;
 }
 
-.top-instructions {
-    padding-top: 6rem;
-    margin: 0 auto;
-    width: 80%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-}
-
+  
 .back-button {
     font-family: "Janda Mantee";
     font-size: 2.5rem;
@@ -136,50 +137,45 @@ body {
     justify-content: flex-end;
 }
 
-.back-button::before {
-    content: '';
+  
+  .back-button::before {
+    content: "";
     display: block;
-    background: url('../assets/img/triangle.png'); 
+    background: url("../assets/img/triangle.png");
     background-repeat: no-repeat;
     background-size: cover;
     width: 3.5rem;
     height: 3.5rem;
     margin-right: 1rem;
-}
-
-.start-button::before, .instructions-button::before, .story-button::before {
-    content: '';
+  }
+  
+  .start-button::before,
+  .instructions-button::before,
+  .story-button::before {
+    content: "";
     display: block;
-
+  
     background-repeat: no-repeat;
     width: 7rem;
     height: 7rem;
     margin-bottom: -3.7rem;
     margin-left: -3.5rem;
     z-index: -10;
-}
+  }
+  
+  .start-button::before {
+    background: url("../assets/img/option01.svg");
+  }
+  
+  .instructions-button::before {
+    background: url("../assets/img/option02.svg");
+  }
+  
+  .story-button::before {
+    background: url("../assets/img/option03.svg");
+  }
 
-.start-button::before {
-    background: url('../assets/img/option01.svg');  
-}
-
-.instructions-button::before {
-    background: url('../assets/img/option02.svg');
-}
-
-.story-button::before {
-    background: url('../assets/img/option03.svg');
-}
-
-.instructions-container, .control-container {
-    background: white url('../assets/img/background-instructions.jpg');
-    background-size: cover;
-    background-repeat: none;
-}
-
-
-
-.text-control {
+  .text-control {
     margin: 0 auto;
     width: 80%;
     margin-top: 2rem;
@@ -212,332 +208,16 @@ body {
     margin-top: 11rem;
 }
 
-
-
-.info {
-    background: transparent;
-    position: absolute;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    width: 100%;
-}
-
-.heightStyle {
-    background:transparent;
-    font-family: "Janda Mantee";
-    font-size: 2.7rem;
-    color: white;
-    padding-top: 3.5rem;
-    padding-left: 5rem;
-    
-}
-
-.catchedWorms {
-    font-family: "Janda Mantee";
-    font-size: 2rem;
-    color: white;
-    padding-top: 1.2rem;
-    padding-left: 5rem;
-    position: absolute;
-}
-
-.catchedWorms::after {
-    content: '';
-    display: block;
-    background-image: url('../assets/img/worm.svg');
-    background-repeat: no-repeat;
-    width: 2.5rem;
-    height: 5.5rem;
-
-    position: absolute;
-    top: .2rem;
-    right: 0rem;
-    margin-right: -3.2rem;
-
-}
-
-.timeStyle {
-    background:transparent;
-    font-family: "Janda Mantee";
-    font-size: 2.7rem;
-    color: white;
-    padding-top: 3.5rem;
-    padding-right: 5rem;
-}
-
-.bestTimeStyle {
-    font-family: "Janda Mantee";
-    font-size: 2rem;
-    color: white;
-    padding-top: 1.2rem;
-    text-align: right;
-    padding-right: 5rem;
-}
-
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    /*overflow: auto;*/
-    background-color: rgb(0,0,0);
-    background-color: rgba(0,0,0,0.4);
-}
-  
-.modal-content {
-    font-family: "Care Bears";
-    font-size: 2rem;
-    color: #333333;
-    background-color: #fefefe;
-    /*margin: 15% auto;*/
+.top-instructions {
+    padding-top: 6rem;
     margin: 0 auto;
-    margin-top: 9rem;
-    padding: 4rem;
-    box-shadow: 6px 7px 0px 1px #67A3DF;
-    border-radius: 1rem;
-    width: 58%;
-    height: 25rem;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.modal-content h2 {
-    font-family: "Janda Mantee";
-    font-size: 3.8rem;
-    margin-top: 2rem;
-    margin-bottom: 4rem;
-
-    color: #67A3DF;
-}
-
-.allAnswers {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    width: 100%;
-    margin-top: 3rem;
-}
-
-.close {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    margin-bottom: 2rem;
-    margin-top: 5rem;
-    font-size: 2.2rem;
-}
-
-.answer {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    margin-bottom: 2rem;
-}
-
-.answer > img, .close > img {
-    margin-right: .7rem;
-}
-
-.certificate-container {
-    background: url('../assets/img/background-circles-17.svg') 6.4rem 3.7rem, url('../assets/img/background-certificate.jpg');
-    background-size: 67.5rem auto, cover;
-    background-repeat: no-repeat, no-repeat;
-}
-
-.certificate-content, .lost-content {
-    background-image: linear-gradient(to right, #40AAAB, #1587C0, #4D4882);
-    width: 28rem;
-    height: 28rem;
-    border-radius: 50%;
-
-    margin-left: 14rem;
-    margin-top: 6.5rem;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-evenly;
-    
-}
-
-.certificate-content > h2, .lost-content > h2 {
-    font-family: "Janda Mantee";
-    font-size: 3.3rem;
-    color: white;
-    text-shadow: 0.15rem 0.15rem #160D3F;
-    text-align: center;
-    margin-bottom: -2.8rem;
-}
-
-.planet01, .planet02, .planet03 {
-    position: absolute;
-    border-radius: 50%;
-}
-
-.planet01 {
-    right: 25rem;
-    top: 19rem;
-    width: 8rem;
-    height: 8rem;
-    background-image: linear-gradient(to right, #ED7761, #583974);
-    animation: mover 2.2s infinite  alternate; 
-}
-
-.planet02 {
-    right: 15rem;
-    top: 12rem;
-    width: 4.5rem;
-    height: 4.5rem;
-    background-image: linear-gradient(to right, #E7519B, #424A97);
-    animation: mover 2.1s infinite  alternate; 
-}
-
-.planet03 {
-    right: 30rem;
-    top: 9rem;
-    width: 2rem;
-    height: 2rem;
-    background-image: linear-gradient(to right, #DCAEA9, #6C64B1);
-    animation: mover 2s infinite  alternate; 
-}
-
-
-@keyframes mover {
-    0% { transform: translateY(0); }
-    100% { transform: translateY(-20px); }
-}
-
-.crash-content > h2 {
-    font-size: 4.2rem;
-    margin-bottom: -1rem;
-}
-
-.certificate-congratz {
-    font-family: "Care Bears";
-    font-size: 1.8rem;
-    color: white;
-    text-align: center;
-    width: 23rem;
-    line-height: 2.2rem;
-}
-
-.certificate-time {
-    font-family: "Janda Mantee";
-    font-size: 1.8rem;
-    color: white;
-    text-align: center;
-    margin-top: -2.5rem;
-}
-
-.certificate-best {
-    font-family: "Janda Mantee";
-    font-size: 1.5rem;
-    color: white;
-    text-align: center;
-    margin-top: -4rem;
-}
-
-.rosette {
-    margin-top: -4.5rem;
-    margin-left: 9.5rem;
-}
-
-.certificate-container > canvas, .control-container > canvas {
-    position: absolute;
-    top: 0;
-    left: 0;
-}
-
-.buttons-certificate {
-    font-family: "Janda Mantee";
-    font-size: 2.5rem;
-    color: white;
-    text-shadow: 0.15rem 0.15rem #160D3F;
-    position: absolute;
-    right: 9rem;
+    width: 80%;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    width: 32%;
-    margin-top: -5rem;
+    align-items: center;
 }
 
-.menu-button::before {
-    content: '';
-    display: block;
-
-    background-repeat: no-repeat;
-    width: 7rem;
-    height: 7rem;
-    margin-bottom: -3.7rem;
-    margin-left: -3.5rem;
-    z-index: -10;
-}
-
-.menu-button::before {
-    background: url('../assets/img/option04.svg');
-}
-
-#fact {
-    text-align: center;
-    line-height: 2.8rem; 
-}
-
-#question {
-    text-align: center;
-    line-height: 2.8rem;
-    margin-top: -1rem;  
-}
-
-.lost-container, .crashed-container {
-    background-image: url('../assets/img/background-lost.jpg');
-    background-size: cover;
-    background-repeat: no-repeat;
-}
-
-.buttons-lost {
-    font-family: "Janda Mantee";
-    font-size: 2.5rem;
-    color: white;
-    text-shadow: 0.15rem 0.15rem #160D3F;
-    position: absolute;
-    right: 9rem;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: flex-end;
-    height: 33vh;
-    width: 32%;
-    margin-top: -5rem;
-}
-
-
-.correct-answer {
-    display: flex;
-    flex-direction: column;
-    margin-top: -3.5rem;
-}
-
-#correct {
-    font-family: "Janda Mantee";
-    font-size: 2.2rem;
-    padding-top: .6rem;
-}
-
-.crash {
-    font-size: 2.1rem;
-}
-
-#try-again {
-    font-size: 1.7rem;
-    margin-top: 1em;
-}
 
 .instru-steps {
     margin: 0 auto;
@@ -571,3 +251,507 @@ body {
     width: 18rem;
     margin-bottom: 2rem;
 }
+  
+  @media screen and (max-width: 750px) {
+    .start-container {
+      background-position-x: -4rem;
+    }
+    .start-text {
+      margin-left: 4rem;
+      margin-top: 2rem;
+    }
+    .title {
+      font-size: 6.5rem;
+    }
+    .subtitle {
+      font-size: 2rem;
+    }
+    .buttons-start {
+      margin-left: 4rem;
+      font-size: 1.8rem;
+      height: auto;
+      align-items: center;
+    }
+  
+    .buttons-start > p {
+      margin-right: 4rem;
+    }
+  
+    .start-button::before,
+    .instructions-button::before,
+    .story-button::before {
+      width: 5.5rem;
+      height: 5.5rem;
+      margin-bottom: -2.7rem;
+      margin-left: -2.5rem;
+    }
+  }
+  
+  .instructions-container, .control-container {
+    background: white url("../assets/img/background-instructions.jpg");
+    background-size: cover;
+    background-repeat: none;
+  }
+  
+  .info {
+    background: transparent;
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+  }
+  
+  .heightStyle {
+    background: transparent;
+    font-family: "Janda Mantee";
+    font-size: 2.7rem;
+    color: white;
+    padding-top: 3.5rem;
+    padding-left: 5rem;
+  }
+  
+  .catchedWorms {
+    font-family: "Janda Mantee";
+    font-size: 2rem;
+    color: white;
+    padding-top: 1.2rem;
+    padding-left: 5rem;
+    position: absolute;
+  }
+  
+  .catchedWorms::after {
+    content: "";
+    display: block;
+    background-image: url("../assets/img/worm.svg");
+    background-repeat: no-repeat;
+    width: 2.5rem;
+    height: 5.5rem;
+  
+    position: absolute;
+    top: 0.2rem;
+    right: 0rem;
+    margin-right: -3.2rem;
+  }
+  
+  .timeStyle {
+    background: transparent;
+    font-family: "Janda Mantee";
+    font-size: 2.7rem;
+    color: white;
+    padding-top: 3.5rem;
+    padding-right: 5rem;
+  }
+  
+  .bestTimeStyle {
+    font-family: "Janda Mantee";
+    font-size: 2rem;
+    color: white;
+    padding-top: 1.2rem;
+    text-align: right;
+    padding-right: 5rem;
+  }
+  
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+  
+  .modal-content {
+    font-family: "Care Bears";
+    font-size: 2rem;
+    color: #333333;
+    background-color: #fefefe;
+    margin: 0 auto;
+    margin-top: 9rem;
+    padding: 4rem;
+    padding-bottom: 3rem;
+    box-shadow: 6px 7px 0px 1px #67a3df;
+    border-radius: 1rem;
+    width: 58%;
+    height: auto;
+  
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .modal-content h2 {
+    font-family: "Janda Mantee";
+    font-size: 3.8rem;
+    margin-top: 2rem;
+    margin-bottom: 4rem;
+    text-align: center;
+    color: #67a3df;
+  }
+  
+  .allAnswers {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+    margin-top: 3rem;
+  }
+  
+  .close {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 2rem;
+    margin-top: 5rem;
+    font-size: 2.2rem;
+  }
+  
+  .answer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 2rem;
+  }
+  
+  .answer > img,
+  .close > img {
+    margin-right: 0.7rem;
+  }
+  
+  @media screen and (max-width: 750px) {
+    .heightStyle {
+      padding-top: 2rem;
+      padding-left: 2rem;
+      font-size: 2rem;
+    }
+    .catchedWorms {
+      padding-left: 2rem;
+      font-size: 1.6rem;
+    }
+  
+    .timeStyle {
+      padding-top: 2rem;
+      padding-right: 2rem;
+      font-size: 2rem;
+    }
+  
+    .bestTimeStyle {
+      padding-right: 2rem;
+      font-size: 1.6rem;
+    }
+  
+    .modal-content {
+      width: 70%;
+      height: auto;
+    }
+  
+    .modal-content > h2 {
+      font-size: 3rem;
+    }
+  
+    .modal-content > p {
+      font-size: 1.7rem;
+    }
+  
+    .allAnswers {
+      font-size: 1.7rem;
+    }
+  }
+  
+  .certificate-container {
+    background: url("../assets/img/background-circles-17.svg") 6.4rem 3.7rem,
+      url("../assets/img/background-certificate.jpg");
+    background-size: 67.5rem auto, cover;
+    background-repeat: no-repeat, no-repeat;
+  }
+  
+  .certificate-content,
+  .lost-content {
+    background-image: linear-gradient(to right, #40aaab, #1587c0, #4d4882);
+    width: 28rem;
+    height: 28rem;
+    border-radius: 50%;
+  
+    margin-left: 14rem;
+    margin-top: 6.5rem;
+  
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+  }
+  
+  .certificate-content > h2,
+  .lost-content > h2 {
+    font-family: "Janda Mantee";
+    font-size: 3.3rem;
+    color: white;
+    text-shadow: 0.15rem 0.15rem #160d3f;
+    text-align: center;
+    margin-bottom: -2.8rem;
+  }
+  
+  .planet01,
+  .planet02,
+  .planet03 {
+    position: absolute;
+    border-radius: 50%;
+  }
+  
+  .planet01 {
+    right: 25rem;
+    top: 19rem;
+    width: 8rem;
+    height: 8rem;
+    background-image: linear-gradient(to right, #ed7761, #583974);
+    animation: mover 2.2s infinite alternate;
+  }
+  
+  .planet02 {
+    right: 15rem;
+    top: 12rem;
+    width: 4.5rem;
+    height: 4.5rem;
+    background-image: linear-gradient(to right, #e7519b, #424a97);
+    animation: mover 2.1s infinite alternate;
+  }
+  
+  .planet03 {
+    right: 30rem;
+    top: 9rem;
+    width: 2rem;
+    height: 2rem;
+    background-image: linear-gradient(to right, #dcaea9, #6c64b1);
+    animation: mover 2s infinite alternate;
+  }
+  
+  @keyframes mover {
+    0% {
+      transform: translateY(0);
+    }
+    100% {
+      transform: translateY(-20px);
+    }
+  }
+  
+  .crash-content > h2 {
+    font-size: 4.2rem;
+    margin-bottom: -1rem;
+  }
+  
+  .certificate-congratz {
+    font-family: "Care Bears";
+    font-size: 1.8rem;
+    color: white;
+    text-align: center;
+    width: 23rem;
+    line-height: 2.2rem;
+  }
+  
+  .certificate-time {
+    font-family: "Janda Mantee";
+    font-size: 1.8rem;
+    color: white;
+    text-align: center;
+    margin-top: -2.5rem;
+  }
+  
+  .certificate-best {
+    font-family: "Janda Mantee";
+    font-size: 1.5rem;
+    color: white;
+    text-align: center;
+    margin-top: -4rem;
+  }
+  
+  .rosette {
+    margin-top: -4.5rem;
+    margin-left: 9.5rem;
+  }
+
+  .control-container > canvas {
+      position: absolute;
+      top: 0rem;
+      left: 0rem;
+  }
+  
+  .certificate-container > canvas {
+    position: absolute;
+    top: 8rem;
+    left: 37rem;
+  }
+  
+  .buttons-certificate {
+    font-family: "Janda Mantee";
+    font-size: 2.5rem;
+    color: white;
+    text-shadow: 0.15rem 0.15rem #160d3f;
+    position: absolute;
+    right: 9rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 32%;
+    margin-top: -5rem;
+  }
+  
+  .menu-button::before {
+    content: "";
+    display: block;
+  
+    background-repeat: no-repeat;
+    width: 7rem;
+    height: 7rem;
+    margin-bottom: -3.7rem;
+    margin-left: -3.5rem;
+    z-index: -10;
+  }
+  
+  .menu-button::before {
+    background: url("../assets/img/option04.svg");
+  }
+  
+  #fact {
+    text-align: center;
+    line-height: 2.8rem;
+  }
+  
+  #question {
+    text-align: center;
+    line-height: 2.8rem;
+    margin-top: -1rem;
+  }
+  
+  .lost-container,
+  .crashed-container {
+    background-image: url("../assets/img/background-lost.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+  
+  .buttons-lost {
+    font-family: "Janda Mantee";
+    font-size: 2.5rem;
+    color: white;
+    text-shadow: 0.15rem 0.15rem #160d3f;
+    position: absolute;
+    right: 9rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+    height: 33vh;
+    width: 32%;
+    margin-top: -5rem;
+  }
+  
+  .correct-answer {
+    display: flex;
+    flex-direction: column;
+    margin-top: -3.5rem;
+  }
+  
+  #correct {
+    font-family: "Janda Mantee";
+    font-size: 2.2rem;
+    padding-top: 0.6rem;
+  }
+  
+  .crash {
+    font-size: 2.1rem;
+  }
+  
+  #try-again {
+    font-size: 1.7rem;
+    margin-top: 1em;
+  }
+  
+  @media screen and (max-width: 1200px) {
+    .buttons-lost {
+      width: 100%;
+      justify-content: flex-end;
+    }
+  
+    .start-button {
+      margin-right: 6rem;
+    }
+  }
+  
+  @media screen and (max-width: 1100px) {
+    .certificate-container {
+      background-position-x: -2rem;
+    }
+  
+    .certificate-content {
+      margin-left: 5.5rem;
+    }
+  
+    .certificate-container > canvas {
+      top: 8rem;
+      left: 28rem;
+    }
+  
+    .rosette {
+      margin-left: 3rem;
+    }
+  
+    .lost-content {
+      margin-left: 5rem;
+    }
+    .planet01 {
+      right: 12.5rem;
+    }
+    .planet02 {
+      right: 7.5rem;
+    }
+    .planet03 {
+      right: 15rem;
+    }
+  }
+  .start-button {
+    margin-right: 4rem;
+  }
+  
+  @media screen and (max-width: 750px) {
+    .certificate-container {
+      background-position-x: -10rem;
+    }
+  
+    .certificate-content {
+      margin-left: -2rem;
+    }
+  
+    .certificate-container > canvas {
+      top: 8rem;
+      left: 20rem;
+    }
+  
+    .rosette {
+      margin-left: -2rem;
+    }
+  
+    .start-button,
+    .menu-button {
+      font-size: 1.8rem;
+    }
+  
+    .menu-button::before {
+      width: 5.5rem;
+      height: 5.5rem;
+      margin-bottom: -2.7rem;
+      margin-left: -2.5rem;
+    }
+  
+    .planet01 {
+      right: 1rem;
+    }
+    .planet02 {
+      right: -2rem;
+    }
+    .planet03 {
+      right: 7rem;
+    }
+  }
