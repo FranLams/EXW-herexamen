@@ -581,8 +581,6 @@ import Colors from "./classes/Colors.js";
     }
     fruits = [];
 
-    dropHeights = [100, 576, 1032, 1542, 1922, 2403];
-
     haveWormsDropped = [false, false, false, false, false];
     factList = [];
     hasCollided = false;

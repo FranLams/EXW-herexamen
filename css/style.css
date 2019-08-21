@@ -33,7 +33,7 @@ body {
     display: none;
 }
 
-.game-container, .start-container, .instructions-container, .certificate-container, .lost-container, .crashed-container {
+.game-container, .start-container, .instructions-container, .certificate-container, .lost-container, .crashed-container, .control-container {
     width: 100%;
     height: 100%;
   
@@ -171,11 +171,48 @@ body {
     background: url('../assets/img/option03.svg');
 }
 
-.instructions-container {
+.instructions-container, .control-container {
     background: white url('../assets/img/background-instructions.jpg');
     background-size: cover;
     background-repeat: none;
 }
+
+
+
+.text-control {
+    margin: 0 auto;
+    width: 80%;
+    margin-top: 2rem;
+
+    font-family: "Care Bears";
+    color: white;
+    font-size: 1.8rem;
+    line-height: 2.8rem;
+}
+
+.try-it {
+    font-family: "Janda Mantee";
+    color: white;
+    font-size: 3rem;
+    margin-top: 1.5rem;
+}
+
+.controller {
+    text-align: right;
+    position: absolute;
+    right: 8rem;
+    margin-top: 1.5rem;
+}
+
+.shadow {
+    text-shadow: 0.15rem 0.15rem #160D3F;
+}
+
+.control-button {
+    margin-top: 11rem;
+}
+
+
 
 .info {
     background: transparent;
@@ -411,7 +448,7 @@ body {
     margin-left: 9.5rem;
 }
 
-.certificate-container > canvas {
+.certificate-container > canvas, .control-container > canvas {
     position: absolute;
     top: 0;
     left: 0;
