@@ -4,6 +4,7 @@
     const $standardMessage = document.querySelector(`.active`);
     const $start = document.querySelector(`.start-container`);
     const $instructions = document.querySelector(`.instructions-container`);
+    const $control = document.querySelector(`.control-container`);
     const $game = document.querySelector(`.game-container`);
     const $certificate = document.querySelector(`.certificate-container`);
     const $lost = document.querySelector(`.lost-container`);
@@ -48,13 +49,28 @@
             };
 
             if(cross.pressed && $instructions.classList.contains('active')){
-                switchScreen($instructions, $game);
-                backgroundMusic.play();
-                backgroundMusic.volume = 0.3;
+                setTimeout(() => {
+                switchScreen($instructions, $control);
+                }, 300)
             };
             if(triangle.pressed && $instructions.classList.contains('active')){
                 switchScreen($instructions, $start);
             };
+
+
+            if(cross.pressed && $control.classList.contains('active')){
+                setTimeout(() => {
+                switchScreen($control, $game);
+                backgroundMusic.play();
+                backgroundMusic.volume = 0.3;
+                }, 300)
+            };
+            if(triangle.pressed && $control.classList.contains('active')){
+                setTimeout(() => {
+                switchScreen($control, $instructions);
+                }, 300)
+            };
+
 
             if(cross.pressed && $certificate.classList.contains('active')){
                 switchScreen($certificate, $game);
