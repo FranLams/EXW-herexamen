@@ -11,12 +11,14 @@ Kiwi's zijn loopvogels die in Nieuw-Zeeland leven. Deze schattige beestjes kunne
 **Video:** https://www.youtube.com/watch?v=sdUUx5FdySs
 
 ## Besturing
-Als de linker joystick van de controller naar beneden geduwd wordt, komt er vuur uit de linkerbuis van de jetpack en vliegt de kiwi naar de rechterbovenhoek. Als de rechter joystick van de controller naar beneden geduwd wordt, komt er vuur uit de rechterbuis van de jetpack en vliegt de kiwi naar de linkerbovenhoek. Wanneer beide joysticks naar beneden geduwd worden, gaat de kiwi recht naar boven.
+Als de linker joystick van de controller naar beneden geduwd wordt, komt er vuur uit de linkerbuis van de jetpack en vliegt de kiwi naar de rechterbovenhoek. Als de rechter joystick van de controller naar beneden geduwd wordt, komt er vuur uit de rechterbuis van de jetpack en vliegt de kiwi naar de linkerbovenhoek. Wanneer beide joysticks naar beneden geduwd worden, gaat de kiwi recht naar boven. L2 en R2 samen ingedrukt houden, maakt de kiwi zwaarder en laat hem sneller dalen.
 
 ## Verloop game
-De vogel komt 5 verschillende hoogte-lagen tegen. In elke laag vliegen de gepaste elementen rond. Tussen 11000 meter en 12000 meter zullen er dus vliegtuigen vliegen. De elementen voor de andere lagen zullen nog bepaald worden.
+De vogel komt 5 verschillende hoogte-lagen tegen. In elke laag vliegen de gepaste elementen rond.
 
-In elke laag valt een wormpje met parachute (brainfood) naar beneden. Als de gebruiker een worm kan vangen door er met de kiwi over te vliegen, krijgt hij een weetje te zien over die hoogte-laag. Wanneer hij de worm dus vangt tussen 11000 meter en 12000 meter, zal de gebruiker een weetje te zien krijgen over vliegtuigen.
+In elke laag valt een wormpje met parachute (brainfood) naar beneden. Als de gebruiker een worm kan vangen door er met de kiwi over te vliegen, krijgt hij een weetje te zien over die hoogte-laag. Wanneer hij de worm dus vangt tussen 0 meter en 17000 meter, zal de gebruiker een weetje te zien krijgen over de troposfeer. Dit weetje kan juist of fout zijn. De gebruiker zal een keuze moeten maken. Als het antwoord correct is, wordt er 10 seconden van je tijd afgetrokken. Als het fout is, komen er 5 seconden bij.
+
+De kiwi kan sneller vliegen door onderweg kiwi (fruit) te verzamelen.
 
 Als de gebruiker de bovenste laag voorbij vliegt, krijgt hij een vraag te zien over één van de weetjes die hij tegengekomen is of kon tegenkomen tijdens het spel. De gebruiker krijgt ook vier antwoord opties te zien. Voor elk antwoord staat een bolletje, kruisje, driehoekje of vierkantje. De gebruiker antwoordt door één van deze knoppen in te drukken op de controller.
 
