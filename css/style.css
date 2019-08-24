@@ -67,7 +67,7 @@
 .top-instructions > h2 {
     font-family: "Janda Mantee";
     color: white;
-    font-size: 4.2rem;
+    font-size: 5rem;
     text-transform: uppercase;
 }
   
@@ -193,19 +193,12 @@
     margin-top: 1.5rem;
 }
 
-.controller {
-    text-align: right;
-    position: absolute;
-    right: 8rem;
-    margin-top: 1.5rem;
-}
-
 .shadow {
     text-shadow: 0.15rem 0.15rem #160D3F;
 }
 
 .control-button {
-    margin-top: 11rem;
+    margin-top: 15vh;
 }
 
 .top-instructions {
@@ -224,6 +217,7 @@
     display: flex;
     flex-direction: row;
     width: 80%;
+    height: 55vh;
     justify-content: space-between;
 }
 
@@ -233,12 +227,13 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: space-around;
     background-color: rgba(22,13,63,0.2);
     border-radius: 10%;
 }
 
 .instru-step > img {
-    width: 20rem;
+    width: 95%;
     margin-top: 3rem;
     margin-bottom: 2rem;
 }
@@ -292,6 +287,15 @@
     background-size: cover;
     background-repeat: none;
   }
+
+  .controller {
+    text-align: right;
+    position: absolute;
+    right: 5rem;
+    margin-top: 4vh;
+    width: 45vw;
+    height: auto;
+}
   
   .info {
     background: transparent;
@@ -542,14 +546,14 @@
     }
   }
   
-  .crash-content > h2 {
+  .crash-content > h2, .lost-content > h2 {
     font-size: 4.2rem;
     margin-bottom: -1rem;
   }
   
   .certificate-congratz {
     font-family: "Care Bears";
-    font-size: 1.8rem;
+    font-size: 2rem;
     color: white;
     text-align: center;
     width: 23rem;
@@ -667,7 +671,7 @@
   
   #correct {
     font-family: "Janda Mantee";
-    font-size: 2.2rem;
+    font-size: 2.3rem;
     padding-top: 0.6rem;
   }
   
@@ -681,6 +685,10 @@
   }
   
   @media screen and (max-width: 1200px) {
+    .top-instructions > h2 {
+        font-size: 4.2rem;
+    }
+
     .buttons-lost {
       width: 100%;
       justify-content: flex-end;
@@ -689,6 +697,7 @@
     .start-button {
       margin-right: 6rem;
     }
+
   }
   
   @media screen and (max-width: 1100px) {

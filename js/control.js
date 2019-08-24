@@ -50,6 +50,14 @@ import Kiwi from './classes/Kiwi.js';
     controlContainer.appendChild(renderer.domElement);
   };
 
+  const reportWindowSize = () => {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+  };
+
+  window.onresize = reportWindowSize;
+
   const createLights = () => {
     hemisphereLight = new THREE.HemisphereLight(0xaaaaaa, 0x000000, 0.9);
     scene.add(hemisphereLight);
