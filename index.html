@@ -21,21 +21,21 @@
     Je hebt Javascript nodig om dit project te zien.
   </div>
   <div class="start-container">
-    <div class="start-text">
+    <header class="start-text">
       <h1 class="title">Space kiwi</h1>
       <p class="subtitle">Ga op ontdekking in de ruimte!</p>
-    </div>
+    </header>
     <div class="buttons-start">
       <p class="start-button">Start spel</p>
       <p class="instructions-button">Instructies</p>
     </div>
   </div>
-  <div class="instructions-container" id="instruction-world">
-    <div class="top-instructions">
+  <section class="instructions-container" id="instruction-world">
+    <header class="top-instructions">
       <h2>Doel van het spel</h2>
       <p class="back-button">Terug</p>
-    </div>
-    <div class="instru-steps">
+    </header>
+    <article class="instru-steps">
       <div class="instru-step">
         <img src="assets/img/instru01.svg" width="150" height="180" alt="worm">
         <p>Vang de wormpjes en probeer de weetjes goed te onthouden...</p>
@@ -48,17 +48,18 @@
         <img src="assets/img/instru03.svg" width="135" height="190" alt="">
         <p>Win tijd door over kiwi’s te vliegen en juist/fout vragen correct te beantwoorden</p>
       </div>
-    </div>
+    </article>
     <div class="buttons-instructions">
       <p class="start-button">Besturing</p>
     </div>
-  </div>
-  <div class="control-container" id="control-world">
-    <div class="top-control top-instructions">
+  </section>
+
+  <section class="control-container" id="control-world">
+    <header class="top-control top-instructions">
       <h2>Besturing</h2>
       <p class="back-button">Terug</p>
-    </div>
-    <div class="text-control">
+    </header>
+    <article class="text-control">
       <p>Duw <span class="shadow">de linker joystick</span> naar beneden om naar <span class="shadow">rechts</span> te
         vliegen</p>
       <p>Duw <span class="shadow">de rechter joystick</span> naar beneden om naar <span class="shadow">links</span> te
@@ -68,15 +69,16 @@
       <p>Houd <span class="shadow">L2 en R2</span> ingedrukt om de kiwi sneller te laten <span
           class="shadow">dalen</span></p>
       <p class="try-it">Probeer het zelf!</p>
-    </div>
+      </article>
     <img class="controller" src="assets/img/controller.svg" width="630" height="240"
       alt="controller joysticks en triggers">
     <div class="buttons-instructions">
       <p class="control-button start-button">start spel</p>
     </div>
-  </div>
-  <div class="game-container" id="world">
-    <div class="info">
+  </section>
+
+  <section class="game-container" id="world">
+    <article class="info">
       <div>
         <p class="heightStyle">Hoogte: <span id="height"></span> km</p>
         <p class="catchedWorms">Weetjes: <span id="catched">0</span>/5</p>
@@ -89,8 +91,8 @@
           Beste: <span id="bestMinutes"></span>.<span id="bestSeconds"></span> min
         </p>
       </div>
-    </div>
-    <div id="myModalFact" class="modal">
+    </article>
+    <article id="myModalFact" class="modal">
       <div id="modal-content" class="modal-content">
         <h2 id="changeTitle">Waar of niet waar?</h2>
         <p id="trueFalseFact"></p>
@@ -105,8 +107,8 @@
           </div>
         </div>
       </div>
-    </div>
-    <div id="myModalQuestion" class="modal">
+    </article>
+    <article id="myModalQuestion" class="modal">
       <div class="modal-content">
         <h2>De beslissende vraag...</h2>
         <p id="question"></p>
@@ -133,10 +135,11 @@
           </div>
         </div>
       </div>
-    </div>
-  </div>
-  <div class="certificate-container" id="certificate-world">
-    <div class="certificate-content">
+    </article>
+  </section>
+
+  <section class="certificate-container" id="certificate-world">
+    <article class="certificate-content">
       <h2>Proficiat!</h2>
       <p class="certificate-congratz">
         Je hebt de vraag juist beantwoord en het vliegbrevet behaald!
@@ -149,20 +152,21 @@
         Beste tijd: <span class="certificate-best__minutes"></span>.<span class="certificate-best__seconds"></span>
         min
       </p>
-    </div>
+    </article>
     <img class="rosette" src="assets/img/rosette.svg" width="285" height="235" alt="rosette" />
     <div class="buttons-certificate">
       <p class="start-button">Opnieuw spelen</p>
       <p class="menu-button">Menu</p>
     </div>
-  </div>
-  <div class="lost-container">
-    <div class="lost-content">
+  </section>
+
+  <section class="lost-container">
+    <article class="lost-content">
       <h2 class="certificate-congratz">Helaas...</h2>
       <p class="correct-answer certificate-congratz">
         Het juiste antwoord was <span id="correct"></span>
       </p>
-    </div>
+    </article>
     <div class="buttons-certificate buttons-lost">
       <p class="start-button">Opnieuw spelen</p>
       <p class="menu-button">Menu</p>
@@ -170,15 +174,16 @@
     <div class="planet01"></div>
     <div class="planet02"></div>
     <div class="planet03"></div>
-  </div>
-  <div class="crashed-container">
-    <div class="crash-content lost-content">
+  </section>
+
+  <section class="crashed-container">
+    <article class="crash-content lost-content">
       <h2 class="certificate-congratz">BAM!!!</h2>
       <p class="crash correct-answer certificate-congratz">
         De kiwi is gecrashed... <br>
         <span id="try-again">Probeer opnieuw en ontwijk de vliegtuigjes en meteoren</span>
       </p>
-    </div>
+    </article>
     <div class="planet01"></div>
     <div class="planet02"></div>
     <div class="planet03"></div>
@@ -186,7 +191,8 @@
       <p class="start-button">Opnieuw spelen</p>
       <p class="menu-button">Menu</p>
     </div>
-  </div>
+  </section>
+
   <script type="text/javascript" src="assets/data.json"></script>
   <script src="js/three.js"></script>
   <script src="js/index.js" type="module"></script>
