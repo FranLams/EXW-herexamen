@@ -32,6 +32,32 @@
   .hide {
     display: none;
   }
+
+  #warning {
+    position: absolute;
+    z-index: 500;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      background-color: rgba(22, 13, 63, 0.4);
+  }
+
+  .controllerWarning {
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    height: 45%;
+    border-radius: 1rem;
+    font-family: "Care Bears";
+    color: white;
+    font-size: 2.2rem;
+    padding: 3rem 4rem;
+  }
   
   .game-container,
   .start-container,
@@ -226,7 +252,7 @@
     align-items: center;
     justify-content: space-around;
     background-color: rgba(22, 13, 63, 0.2);
-    border-radius: 10%;
+    border-radius: 1rem;
   }
   
   .instru-step > img {

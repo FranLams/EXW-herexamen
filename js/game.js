@@ -53,6 +53,7 @@ import Plane from './classes/Plane.js';
   const needJs = document.getElementById('hidden');
   const $start = document.querySelector(`.start-container`);
   const $correct = document.getElementById('correct');
+  const $warning = document.getElementById('warning');
 
   const $changeTitle = document.getElementById('changeTitle');
   const $false = document.getElementById('false');
@@ -161,12 +162,14 @@ import Plane from './classes/Plane.js';
 
   window.addEventListener('gamepadconnected', event => {
     isGamepadConnected = true;
+    $warning.style.display = "none";
     console.log('A gamepad connected:');
     console.log(event.gamepad);
   });
 
   window.addEventListener('gamepaddisconnected', event => {
     isGamepadConnected = false;
+    $warning.style.display = "block";
     console.log('A gamepad disconnected:');
     console.log(event.gamepad);
   });
