@@ -405,7 +405,8 @@
     flex-direction: row;
     align-items: center;
     margin-bottom: 2rem;
-    margin-top: 5rem;
+    margin-top: 4rem;
+    margin-right: 3rem;
     font-size: 2.2rem;
   }
 
@@ -621,6 +622,7 @@
   #fact, #trueFalseFact {
     text-align: center;
     line-height: 2.8rem;
+    padding: 1rem;
   }
   
   #question {
