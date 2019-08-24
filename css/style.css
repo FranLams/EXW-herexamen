@@ -39,7 +39,7 @@
   .certificate-container,
   .lost-container,
   .crashed-container,
-  .control-container{
+  .control-container {
     width: 100%;
     height: 100%;
   
@@ -63,13 +63,13 @@
     flex-direction: column;
     height: 100vh;
   }
-
-.top-instructions > h2 {
+  
+  .top-instructions > h2 {
     font-family: "Janda Mantee";
     color: white;
     font-size: 5rem;
     text-transform: uppercase;
-}
+  }
   
   .start-text {
     font-family: "Janda Mantee";
@@ -110,11 +110,11 @@
     margin-right: 8rem;
   }
   
-.buttons-instructions {
+  .buttons-instructions {
     font-family: "Janda Mantee";
     font-size: 2.5rem;
     color: white;
-    text-shadow: 0.15rem 0.15rem #160D3F;
+    text-shadow: 0.15rem 0.15rem #160d3f;
     position: absolute;
     display: flex;
     flex-direction: row;
@@ -123,20 +123,18 @@
     margin-left: 11.5rem;
     align-items: flex-end;
     margin-top: 1.5rem;
-}
-
+  }
   
-.back-button {
+  .back-button {
     font-family: "Janda Mantee";
     font-size: 2.5rem;
     color: white;
-    text-shadow: 0.15rem 0.15rem #160D3F;
+    text-shadow: 0.15rem 0.15rem #160d3f;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: flex-end;
-}
-
+  }
   
   .back-button::before {
     content: "";
@@ -174,34 +172,34 @@
   .story-button::before {
     background: url("../assets/img/option03.svg");
   }
-
+  
   .text-control {
     margin: 0 auto;
     width: 80%;
     margin-top: 2rem;
-
+  
     font-family: "Care Bears";
     color: white;
     font-size: 1.8rem;
     line-height: 2.8rem;
-}
-
-.try-it {
+  }
+  
+  .try-it {
     font-family: "Janda Mantee";
     color: white;
     font-size: 3rem;
     margin-top: 1.5rem;
-}
-
-.shadow {
-    text-shadow: 0.15rem 0.15rem #160D3F;
-}
-
-.control-button {
+  }
+  
+  .shadow {
+    text-shadow: 0.15rem 0.15rem #160d3f;
+  }
+  
+  .control-button {
     margin-top: 15vh;
-}
-
-.top-instructions {
+  }
+  
+  .top-instructions {
     padding-top: 6rem;
     margin: 0 auto;
     width: 80%;
@@ -209,43 +207,42 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-}
-
-
-.instru-steps {
+  }
+  
+  .instru-steps {
     margin: 0 auto;
     display: flex;
     flex-direction: row;
     width: 80%;
     height: 55vh;
     justify-content: space-between;
-}
-
-.instru-step {
+  }
+  
+  .instru-step {
     margin-top: 4rem;
     width: 30%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
-    background-color: rgba(22,13,63,0.2);
+    background-color: rgba(22, 13, 63, 0.2);
     border-radius: 10%;
-}
-
-.instru-step > img {
+  }
+  
+  .instru-step > img {
     width: 95%;
     margin-top: 3rem;
     margin-bottom: 2rem;
-}
-
-.instru-step > p {
+  }
+  
+  .instru-step > p {
     font-family: "Care Bears";
     color: white;
     font-size: 1.8rem;
     text-align: center;
     width: 18rem;
     margin-bottom: 2rem;
-}
+  }
   
   @media screen and (max-width: 750px) {
     .start-container {
@@ -282,12 +279,13 @@
     }
   }
   
-  .instructions-container, .control-container {
+  .instructions-container,
+  .control-container {
     background: white url("../assets/img/background-instructions.jpg");
     background-size: cover;
     background-repeat: none;
   }
-
+  
   .controller {
     text-align: right;
     position: absolute;
@@ -295,7 +293,7 @@
     margin-top: 4vh;
     width: 45vw;
     height: auto;
-}
+  }
   
   .info {
     background: transparent;
@@ -360,8 +358,8 @@
     display: none;
     position: fixed;
     z-index: 1;
-    left: 0;
     top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
     background-color: rgb(0, 0, 0);
@@ -369,12 +367,14 @@
   }
   
   .modal-content {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
     font-family: "Care Bears";
     font-size: 2rem;
     color: #333333;
     background-color: #fefefe;
-    margin: 0 auto;
-    margin-top: 9rem;
     padding: 4rem;
     padding-bottom: 3rem;
     box-shadow: 6px 7px 0px 1px #67a3df;
@@ -413,9 +413,9 @@
     margin-right: 3rem;
     font-size: 2.2rem;
   }
-
+  
   .false {
-      margin-left: 4rem;
+    margin-left: 4rem;
   }
   
   .answer {
@@ -546,7 +546,8 @@
     }
   }
   
-  .crash-content > h2, .lost-content > h2 {
+  .crash-content > h2,
+  .lost-content > h2 {
     font-size: 4.2rem;
     margin-bottom: -1rem;
   }
@@ -580,11 +581,11 @@
     margin-top: -4.5rem;
     margin-left: 9.5rem;
   }
-
+  
   .control-container > canvas {
-      position: absolute;
-      top: 0rem;
-      left: 0rem;
+    position: absolute;
+    top: 0rem;
+    left: 0rem;
   }
   
   .certificate-container > canvas {
@@ -623,7 +624,8 @@
     background: url("../assets/img/option04.svg");
   }
   
-  #fact, #trueFalseFact {
+  #fact,
+  #trueFalseFact {
     text-align: center;
     line-height: 2.8rem;
     padding: 1rem;
@@ -634,10 +636,10 @@
     line-height: 2.8rem;
     margin-top: -1rem;
   }
-
+  
   .trueFalseButtons {
-      display: flex;
-      flex-direction: row;
+    display: flex;
+    flex-direction: row;
   }
   
   .lost-container,
@@ -686,9 +688,9 @@
   
   @media screen and (max-width: 1200px) {
     .top-instructions > h2 {
-        font-size: 4.2rem;
+      font-size: 4.2rem;
     }
-
+  
     .buttons-lost {
       width: 100%;
       justify-content: flex-end;
@@ -697,7 +699,6 @@
     .start-button {
       margin-right: 6rem;
     }
-
   }
   
   @media screen and (max-width: 1100px) {
@@ -775,3 +776,4 @@
       right: 7rem;
     }
   }
+  
