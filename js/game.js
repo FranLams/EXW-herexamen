@@ -36,6 +36,7 @@ import Plane from './classes/Plane.js';
     savedMinutes = localStorage.getItem('minutes'),
     savedSeconds = localStorage.getItem('seconds'),
     factList = [],
+    factAnswered = false,
     randomQuestion,
     movementSpeedDouble = 1.8,
     movementSpeedSingle = 1.6;
@@ -45,12 +46,17 @@ import Plane from './classes/Plane.js';
   const gameOver = document.getElementById('gameOver-sound');
   const win = document.getElementById('win-sound');
   const modalFact = document.getElementById('myModalFact');
+  const modalContent = document.querySelector('.modal-content');
   const modalQuestion = document.getElementById('myModalQuestion');
   const $world = document.getElementById('world');
   const $height = document.getElementById('height');
   const needJs = document.getElementById('hidden');
   const $start = document.querySelector(`.start-container`);
   const $correct = document.getElementById('correct');
+
+  const $changeTitle = document.getElementById('changeTitle');
+  const $false = document.getElementById('false');
+  const $true = document.querySelector(`.true`);
 
   const $trueFalseFact = document.getElementById('trueFalseFact');
   const $question = document.getElementById('question');
@@ -413,6 +419,7 @@ import Plane from './classes/Plane.js';
     correct.innerHTML = randomQuestion.correctAnswer;
   };
 
+  let answeredCorrectly;
   const checkTrueFalse = () => {
     let index = collidedWorm;
     if (isGamepadConnected) {
@@ -421,27 +428,102 @@ import Plane from './classes/Plane.js';
       const circle = gamepad.buttons[1];
       const triangle = gamepad.buttons[3];
 
-      if (triangle.pressed) {
-        console.log('triangle pressed');
-        closeModalFact();
-        if (factList[index].trueFalseAnswers[0] == factList[index].trueFalseCorrect) {
-          console.log('jaa je hebt het juist');
-          removeSeconds(5);
-        } else {
-          console.log('je hebt het helemaal verkeerd');
+      if(!factAnswered){
+        if (triangle.pressed) {
+          console.log('triangle pressed');
+          if (factList[index].trueFalseAnswers[0] == factList[index].trueFalseCorrect) {
+            factAnswered = true;
+            answeredCorrectly = true;
+            setTimeout(() => {
+              $trueFalseFact.innerHTML = factList[index].fact;
+              $trueFalseFact.style.color = "#333333";
+              $trueFalseFact.style.backgroundColor = "#ffffff"
+  
+              $changeTitle.innerHTML = "Wist je datje"
+              $true.style.display = "none"
+              $false.innerHTML = "Sluiten";
+              
+            }, 400);
+            $trueFalseFact.style.color = "rgba(90, 184, 79, 1.00)";
+            $trueFalseFact.style.backgroundColor = "rgba(203, 245, 204, 1.00)"
+          } else {
+            factAnswered = true;
+            answeredCorrectly = false;
+            setTimeout(() => {
+              $trueFalseFact.innerHTML = factList[index].fact;
+              $trueFalseFact.style.color = "#333333";
+              $trueFalseFact.style.backgroundColor = "#ffffff"
+  
+              $changeTitle.innerHTML = "Wist je datje"
+              $true.style.display = "none"
+              $false.innerHTML = "Sluiten";
+            }, 400);
+            $trueFalseFact.style.color = "rgb(196, 37, 51)";
+            $trueFalseFact.style.backgroundColor = "rgba(244, 133, 132, 0.4)"
+            gamepad.vibrationActuator.playEffect('dual-rumble', {
+              startDelay: 0,
+              duration: 500,
+              weakMagnitude: 1.0,
+              strongMagnitude: 1.0,
+            });     
+          }
+        }
+  
+        if (circle.pressed) {
+          console.log('circle pressed');
+          if (factList[index].trueFalseAnswers[1] == factList[index].trueFalseCorrect) {
+            answeredCorrectly = true;
+            setTimeout(() => {
+              factAnswered = true;
+              $trueFalseFact.innerHTML = factList[index].fact;
+              $trueFalseFact.style.color = "#333333";
+              $trueFalseFact.style.backgroundColor = "#ffffff"
+  
+              $changeTitle.innerHTML = "Wist je datje"
+              $true.style.display = "none"
+              $false.innerHTML = "Sluiten";
+              // if (circle.pressed) {
+              //   closeModalFact();
+              // }
+            }, 400);
+            $trueFalseFact.style.color = "rgba(90, 184, 79, 1.00)";
+            $trueFalseFact.style.backgroundColor = "rgba(203, 245, 204, 1.00)"
+          } else {
+            answeredCorrectly = false;
+            setTimeout(() => {
+              factAnswered = true;
+              $trueFalseFact.innerHTML = factList[index].fact;
+              $trueFalseFact.style.color = "#333333";
+              $trueFalseFact.style.backgroundColor = "#ffffff"
+  
+              $changeTitle.innerHTML = "Wist je datje"
+              $true.style.display = "none"
+              $false.innerHTML = "Sluiten";
+              
+            }, 400);
+            $trueFalseFact.style.color = "rgb(196, 37, 51)";
+            $trueFalseFact.style.backgroundColor = "rgba(244, 133, 132, 0.4)"
+            gamepad.vibrationActuator.playEffect('dual-rumble', {
+              startDelay: 0,
+              duration: 500,
+              weakMagnitude: 1.0,
+              strongMagnitude: 1.0,
+            });
+          }
+        }
+      }else{
+        if (circle.pressed) {
+          closeModalFact();
+          if(answeredCorrectly == true) {
+            removeSeconds();
+          }
+          factAnswered = false;
+          $changeTitle.innerHTML = "Waar of niet waar?"
+          $true.style.display = "flex"
+          $false.innerHTML = "Niet waar";
         }
       }
-
-      if (circle.pressed) {
-        console.log('circle pressed');
-        closeModalFact();
-        if (factList[index].trueFalseAnswers[1] == factList[index].trueFalseCorrect) {
-          console.log('jaa je hebt het juist');
-          removeSeconds(5);
-        } else {
-          console.log('je hebt het helemaal verkeerd');
-        }
-      }
+      
     }
   };
 
@@ -453,7 +535,7 @@ import Plane from './classes/Plane.js';
   const removeSeconds = () => {
     if(sec > 10){
     let val = sec - 10;
-    sec = pad(val % 90);
+    sec = pad(val % 60);
     } else {
       sec = 0;
     }
