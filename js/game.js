@@ -1,10 +1,9 @@
-import Kiwi from "./classes/Kiwi.js";
-import Brainfood from "./classes/Brainfood.js";
-import Plane from "./classes/Plane.js";
-import Meteor from "./classes/Meteor.js";
-import MeteorBlue from "./classes/MeteorBlue.js";
-import Fruit from "./classes/Fruit.js";
-import Colors from "./classes/Colors.js";
+import Brainfood from './classes/Brainfood.js';
+import Fruit from './classes/Fruit.js';
+import Kiwi from './classes/Kiwi.js';
+import Meteor from './classes/Meteor.js';
+import MeteorBlue from './classes/MeteorBlue.js';
+import Plane from './classes/Plane.js';
 
 {
   let scene,
@@ -27,38 +26,39 @@ import Colors from "./classes/Colors.js";
     meteorBlue,
     hasCollided,
     worms = [],
+    collidedWorm,
     fruits = [],
     haveWormsDropped = [false, false, false, false, false],
     data = JSON.parse(facts),
     sec = 0,
     scoredMinutes,
     scoredSeconds,
-    savedMinutes = localStorage.getItem("minutes"),
-    savedSeconds = localStorage.getItem("seconds"),
+    savedMinutes = localStorage.getItem('minutes'),
+    savedSeconds = localStorage.getItem('seconds'),
     factList = [],
     randomQuestion,
     movementSpeedDouble = 1.8,
     movementSpeedSingle = 1.6;
 
-  const backgroundMusic = document.getElementById("background-music");
-  const explosion = document.getElementById("explosion-sound");
-  const gameOver = document.getElementById("gameOver-sound");
-  const win = document.getElementById("win-sound");
-  const modalFact = document.getElementById("myModalFact");
-  const modalQuestion = document.getElementById("myModalQuestion");
-  const $world = document.getElementById("world");
-  const $height = document.getElementById("height");
-  const needJs = document.getElementById("hidden");
+  const backgroundMusic = document.getElementById('background-music');
+  const explosion = document.getElementById('explosion-sound');
+  const gameOver = document.getElementById('gameOver-sound');
+  const win = document.getElementById('win-sound');
+  const modalFact = document.getElementById('myModalFact');
+  const modalQuestion = document.getElementById('myModalQuestion');
+  const $world = document.getElementById('world');
+  const $height = document.getElementById('height');
+  const needJs = document.getElementById('hidden');
   const $start = document.querySelector(`.start-container`);
-  const $correct = document.getElementById("correct");
+  const $correct = document.getElementById('correct');
 
-  const $fact = document.getElementById("fact");
-  const $question = document.getElementById("question");
-  const $answer1 = document.getElementById("answer1");
-  const $answer2 = document.getElementById("answer2");
-  const $answer3 = document.getElementById("answer3");
-  const $answer4 = document.getElementById("answer4");
-  const $catched = document.getElementById("catched");
+  const $trueFalseFact = document.getElementById('trueFalseFact');
+  const $question = document.getElementById('question');
+  const $answer1 = document.getElementById('answer1');
+  const $answer2 = document.getElementById('answer2');
+  const $answer3 = document.getElementById('answer3');
+  const $answer4 = document.getElementById('answer4');
+  const $catched = document.getElementById('catched');
 
   const $game = document.querySelector(`.game-container`);
 
@@ -109,9 +109,7 @@ import Colors from "./classes/Colors.js";
 
     scene = new THREE.Scene();
 
-    let backgroundTexture = new THREE.TextureLoader().load(
-      "assets/img/background.svg"
-    );
+    let backgroundTexture = new THREE.TextureLoader().load('assets/img/background.svg');
     var geometry = new THREE.PlaneGeometry(390, 3290, 1);
     var material = new THREE.MeshLambertMaterial({ map: backgroundTexture });
     let backgroundPlane = new THREE.Mesh(geometry, material);
@@ -128,14 +126,14 @@ import Colors from "./classes/Colors.js";
 
     renderer = new THREE.WebGLRenderer({
       alpha: true,
-      antialias: true
+      antialias: true,
     });
     renderer.setSize(WIDTH, HEIGHT);
     renderer.shadowMap.enable = true;
 
-    needJs.classList.add("hide");
+    needJs.classList.add('hide');
 
-    container = document.getElementById("world");
+    container = document.getElementById('world');
     container.appendChild(renderer.domElement);
 
     showBestTime();
@@ -144,8 +142,8 @@ import Colors from "./classes/Colors.js";
   const reportWindowSize = () => {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
-    renderer.setSize( window.innerWidth, window.innerHeight );
-  }
+    renderer.setSize(window.innerWidth, window.innerHeight);
+  };
 
   window.onresize = reportWindowSize;
 
@@ -155,15 +153,15 @@ import Colors from "./classes/Colors.js";
     return percentage * (number > 0 ? 1 : -1);
   };
 
-  window.addEventListener("gamepadconnected", event => {
+  window.addEventListener('gamepadconnected', event => {
     isGamepadConnected = true;
-    console.log("A gamepad connected:");
+    console.log('A gamepad connected:');
     console.log(event.gamepad);
   });
 
-  window.addEventListener("gamepaddisconnected", event => {
+  window.addEventListener('gamepaddisconnected', event => {
     isGamepadConnected = false;
-    console.log("A gamepad disconnected:");
+    console.log('A gamepad disconnected:');
     console.log(event.gamepad);
   });
 
@@ -243,7 +241,7 @@ import Colors from "./classes/Colors.js";
 
       fruit.mesh.position.x = randomValueX;
       fruit.mesh.position.z = 5;
-      fruit.mesh.rotation.y += Math.random() * 3;
+      fruit.mesh.rotation.y += Math.random() * 2 - 1;
       scene.add(fruit.mesh);
       fruits.push(fruit);
     }
@@ -261,11 +259,10 @@ import Colors from "./classes/Colors.js";
         setTimeout(() => {
           movementSpeedDouble = 1.8;
           movementSpeedSingle = 1.6;
-        }, 2000)
+        }, 2000);
       }
     }
-  }
-
+  };
 
   const doMeteorLogic = () => {
     const meteorPos = new THREE.Vector3();
@@ -281,11 +278,11 @@ import Colors from "./classes/Colors.js";
       resetGame();
       if (isGamepadConnected) {
         const gamepad = navigator.getGamepads()[0];
-        gamepad.vibrationActuator.playEffect("dual-rumble", {
+        gamepad.vibrationActuator.playEffect('dual-rumble', {
           startDelay: 0,
           duration: 500,
           weakMagnitude: 1.0,
-          strongMagnitude: 1.0
+          strongMagnitude: 1.0,
         });
       }
     }
@@ -300,11 +297,11 @@ import Colors from "./classes/Colors.js";
       resetGame();
       if (isGamepadConnected) {
         const gamepad = navigator.getGamepads()[0];
-        gamepad.vibrationActuator.playEffect("dual-rumble", {
+        gamepad.vibrationActuator.playEffect('dual-rumble', {
           startDelay: 0,
           duration: 500,
           weakMagnitude: 1.0,
-          strongMagnitude: 1.0
+          strongMagnitude: 1.0,
         });
       }
     }
@@ -324,11 +321,11 @@ import Colors from "./classes/Colors.js";
       resetGame();
       if (isGamepadConnected) {
         const gamepad = navigator.getGamepads()[0];
-        gamepad.vibrationActuator.playEffect("dual-rumble", {
+        gamepad.vibrationActuator.playEffect('dual-rumble', {
           startDelay: 0,
           duration: 500,
           weakMagnitude: 1.0,
-          strongMagnitude: 1.0
+          strongMagnitude: 1.0,
         });
       }
     }
@@ -347,11 +344,11 @@ import Colors from "./classes/Colors.js";
 
       if (isGamepadConnected) {
         const gamepad = navigator.getGamepads()[0];
-        gamepad.vibrationActuator.playEffect("dual-rumble", {
+        gamepad.vibrationActuator.playEffect('dual-rumble', {
           startDelay: 0,
           duration: 500,
           weakMagnitude: 1.0,
-          strongMagnitude: 1.0
+          strongMagnitude: 1.0,
         });
       }
     }
@@ -375,7 +372,6 @@ import Colors from "./classes/Colors.js";
 
   const handleCollision = currentWorm => {
     hasCollided = true;
-
     let currentWormIndex = worms.indexOf(currentWorm);
     if (currentWormIndex > -1) {
       worms.splice(currentWormIndex, 1);
@@ -384,29 +380,20 @@ import Colors from "./classes/Colors.js";
 
     setModalFact(currentWorm.mesh.name);
 
-    modalFact.style.display = "block";
+    modalFact.style.display = 'block';
   };
 
   const initFactList = () => {
-    factList.push(
-      data.troposfeer[Math.floor(Math.random() * data.troposfeer.length)]
-    );
-    factList.push(
-      data.stratosfeer[Math.floor(Math.random() * data.stratosfeer.length)]
-    );
-    factList.push(
-      data.mesosfeer[Math.floor(Math.random() * data.mesosfeer.length)]
-    );
-    factList.push(
-      data.thermosfeer[Math.floor(Math.random() * data.thermosfeer.length)]
-    );
-    factList.push(
-      data.exosfeer[Math.floor(Math.random() * data.exosfeer.length)]
-    );
+    factList.push(data.troposfeer[Math.floor(Math.random() * data.troposfeer.length)]);
+    factList.push(data.stratosfeer[Math.floor(Math.random() * data.stratosfeer.length)]);
+    factList.push(data.mesosfeer[Math.floor(Math.random() * data.mesosfeer.length)]);
+    factList.push(data.thermosfeer[Math.floor(Math.random() * data.thermosfeer.length)]);
+    factList.push(data.exosfeer[Math.floor(Math.random() * data.exosfeer.length)]);
   };
 
   const setModalFact = index => {
-    $fact.innerHTML = factList[index].fact;
+    $trueFalseFact.innerHTML = factList[index].trueFalseFact;
+    collidedWorm = index;
   };
 
   const setRandomQuestion = () => {
@@ -414,7 +401,7 @@ import Colors from "./classes/Colors.js";
   };
 
   const setModalQuestion = () => {
-    modalQuestion.style.display = "block";
+    modalQuestion.style.display = 'block';
     hasCollided = true;
 
     $question.innerHTML = randomQuestion.question;
@@ -424,6 +411,52 @@ import Colors from "./classes/Colors.js";
     $answer4.innerHTML = randomQuestion.answers[3];
 
     correct.innerHTML = randomQuestion.correctAnswer;
+  };
+
+  const checkTrueFalse = () => {
+    let index = collidedWorm;
+    if (isGamepadConnected) {
+      const gamepad = navigator.getGamepads()[0];
+
+      const circle = gamepad.buttons[1];
+      const triangle = gamepad.buttons[3];
+
+      if (triangle.pressed) {
+        console.log('triangle pressed');
+        closeModalFact();
+        if (factList[index].trueFalseAnswers[0] == factList[index].trueFalseCorrect) {
+          console.log('jaa je hebt het juist');
+          removeSeconds(5);
+        } else {
+          console.log('je hebt het helemaal verkeerd');
+        }
+      }
+
+      if (circle.pressed) {
+        console.log('circle pressed');
+        closeModalFact();
+        if (factList[index].trueFalseAnswers[1] == factList[index].trueFalseCorrect) {
+          console.log('jaa je hebt het juist');
+          removeSeconds(5);
+        } else {
+          console.log('je hebt het helemaal verkeerd');
+        }
+      }
+    }
+  };
+
+  const closeModalFact = () => {
+    modalFact.style.display = 'none';
+    hasCollided = false;
+  };
+
+  const removeSeconds = () => {
+    if(sec > 10){
+    let val = sec - 10;
+    sec = pad(val % 90);
+    } else {
+      sec = 0;
+    }
   };
 
   const checkAnswer = () => {
@@ -438,113 +471,118 @@ import Colors from "./classes/Colors.js";
       const $certificate = document.querySelector(`.certificate-container`);
       const $lost = document.querySelector(`.lost-container`);
 
-      saveBestTime();
-
       if (square.pressed) {
-        console.log("square pressed");
+        console.log('square pressed');
         setTimeout(() => {
           if (randomQuestion.answers[0] == randomQuestion.correctAnswer) {
+            saveBestTime(true);
             $game.classList.remove(`active`);
             $certificate.classList.add(`active`);
             backgroundMusic.pause();
             win.play();
           } else {
+            saveBestTime(false);
             $game.classList.remove(`active`);
             $lost.classList.add(`active`);
             backgroundMusic.pause();
             gameOver.play();
           }
-          resetGame();
         }, 100);
       }
 
       if (triangle.pressed) {
-        console.log("triangle pressed");
+        console.log('triangle pressed');
         setTimeout(() => {
           if (randomQuestion.answers[1] == randomQuestion.correctAnswer) {
+            saveBestTime(true);
             $game.classList.remove(`active`);
             $certificate.classList.add(`active`);
             backgroundMusic.pause();
             win.play();
           } else {
+            saveBestTime(false);
             $game.classList.remove(`active`);
             $lost.classList.add(`active`);
             backgroundMusic.pause();
             gameOver.play();
           }
-          resetGame();
         }, 100);
       }
 
       if (circle.pressed) {
-        console.log("circle pressed");
+        console.log('circle pressed');
         setTimeout(() => {
           if (randomQuestion.answers[2] == randomQuestion.correctAnswer) {
+            saveBestTime(true);
             $game.classList.remove(`active`);
             $certificate.classList.add(`active`);
             backgroundMusic.pause();
             win.play();
           } else {
+            saveBestTime(false);
             $game.classList.remove(`active`);
             $lost.classList.add(`active`);
             backgroundMusic.pause();
             gameOver.play();
           }
-          resetGame();
         }, 100);
       }
 
       if (cross.pressed) {
-        console.log("cross pressed");
+        console.log('cross pressed');
         setTimeout(() => {
           if (randomQuestion.answers[3] == randomQuestion.correctAnswer) {
+            saveBestTime(true);
             $game.classList.remove(`active`);
             $certificate.classList.add(`active`);
             backgroundMusic.pause();
             win.play();
           } else {
+            saveBestTime(false);
             $game.classList.remove(`active`);
             $lost.classList.add(`active`);
             backgroundMusic.pause();
             gameOver.play();
           }
-          resetGame();
         }, 100);
       }
     }
   };
 
-  const saveBestTime = () => {
-    document.getElementsByClassName(
-      "certificate-time__minutes"
-    )[0].innerHTML = scoredMinutes;
-    document.getElementsByClassName(
-      "certificate-time__seconds"
-    )[0].innerHTML = scoredSeconds;
+  const saveBestTime = isCorrect => {
+    scoredMinutes = document.getElementById('minutes').innerHTML;
+    scoredSeconds = document.getElementById('seconds').innerHTML;
 
-    if (
-      !savedMinutes ||
-      !savedSeconds ||
-      (scoredMinutes == savedMinutes && scoredSeconds < savedSeconds) ||
-      scoredMinutes < savedMinutes
-    ) {
-      localStorage.setItem("minutes", scoredMinutes);
-      localStorage.setItem("seconds", scoredSeconds);
-      savedMinutes = scoredMinutes;
-      savedSeconds = scoredSeconds;
+    console.log(scoredMinutes, scoredSeconds);
+
+    document.getElementsByClassName('certificate-time__minutes')[0].innerHTML = scoredMinutes;
+    document.getElementsByClassName('certificate-time__seconds')[0].innerHTML = scoredSeconds;
+
+    if (isCorrect) {
+      if (
+        !savedMinutes ||
+        !savedSeconds ||
+        (scoredMinutes == savedMinutes && scoredSeconds < savedSeconds) ||
+        scoredMinutes < savedMinutes
+      ) {
+        localStorage.setItem('minutes', scoredMinutes);
+        localStorage.setItem('seconds', scoredSeconds);
+        savedMinutes = scoredMinutes;
+        savedSeconds = scoredSeconds;
+      }
     }
 
-    document.getElementsByClassName(
-      "certificate-best__minutes"
-    )[0].innerHTML = localStorage.getItem("minutes");
-    document.getElementsByClassName(
-      "certificate-best__seconds"
-    )[0].innerHTML = localStorage.getItem("seconds");
+    document.getElementsByClassName('certificate-best__minutes')[0].innerHTML = localStorage.getItem('minutes');
+    document.getElementsByClassName('certificate-best__seconds')[0].innerHTML = localStorage.getItem('seconds');
+
+    setTimeout(() => {
+      resetGame();
+    }, 500);
   };
 
   const showBestTime = () => {
-    let bestMinutes = document.getElementById("bestMinutes");
-    let bestSeconds = document.getElementById("bestSeconds");
+    let bestMinutes = document.getElementById('bestMinutes');
+    let bestSeconds = document.getElementById('bestSeconds');
     bestMinutes.innerHTML = savedMinutes;
     bestSeconds.innerHTML = savedSeconds;
   };
@@ -552,11 +590,9 @@ import Colors from "./classes/Colors.js";
   const resetGame = () => {
     sec = 0;
     backgroundMusic.currentTime = 0;
-    let minutes = document.getElementById("minutes");
-    let seconds = document.getElementById("seconds");
+    document.getElementById('minutes').innerHTML = 0;
+    document.getElementById('seconds').innerHTML = 0;
     catched.innerHTML = 0;
-    seconds.innerHTML = 0;
-    minutes.innerHTML = 0;
     scoredMinutes = null;
     scoredSeconds = null;
 
@@ -575,7 +611,7 @@ import Colors from "./classes/Colors.js";
     kiwi.mesh.position.x = -10;
     kiwi.mesh.position.y = 0;
     camera.position.y = kiwi.mesh.position.y + 30;
-    modalQuestion.style.display = "none";
+    modalQuestion.style.display = 'none';
     for (let i = 0; i < worms.length; i++) {
       scene.remove(worms[i].mesh);
     }
@@ -594,13 +630,13 @@ import Colors from "./classes/Colors.js";
   };
 
   const pad = val => {
-    return val > 9 ? val : "0" + val;
+    return val > 9 ? val : '0' + val;
   };
 
-  const timer = setInterval(function () {
-    if ($world.classList.contains("active")) {
-      let minutes = document.getElementById("minutes");
-      let seconds = document.getElementById("seconds");
+  const timer = setInterval(function() {
+    if ($world.classList.contains('active')) {
+      let minutes = document.getElementById('minutes');
+      let seconds = document.getElementById('seconds');
       seconds.innerHTML = pad(++sec % 60);
       minutes.innerHTML = pad(parseInt(sec / 60, 10));
     }
@@ -615,11 +651,11 @@ import Colors from "./classes/Colors.js";
     requestAnimationFrame(render);
 
     if (kiwi.mesh.position.x < -160) {
-      kiwi.mesh.position.x = -160
+      kiwi.mesh.position.x = -160;
     }
 
     if (kiwi.mesh.position.x > 135) {
-      kiwi.mesh.position.x = 135
+      kiwi.mesh.position.x = 135;
     }
 
     if (kiwi.mesh.position.y > 110) {
@@ -634,7 +670,7 @@ import Colors from "./classes/Colors.js";
     }
 
     if (kiwi.mesh.position.y > 1350) {
-      meteorBlue.mesh.position.x = meteorBlue.mesh.position.x - .8;
+      meteorBlue.mesh.position.x = meteorBlue.mesh.position.x - 0.8;
       meteorBlue.mesh.position.y = meteorBlue.mesh.position.y - 0.4;
       meteorBlue.mesh.rotation.z = meteorBlue.mesh.rotation.z + 0.06;
     }
@@ -648,7 +684,7 @@ import Colors from "./classes/Colors.js";
     plane02.propeller.rotation.x += 0.4;
 
     //Stel de aangesloten gamepad in
-    if (isGamepadConnected && $game.classList.contains("active")) {
+    if (isGamepadConnected && $game.classList.contains('active')) {
       const gamepad = navigator.getGamepads()[0];
 
       const joystickLeftY = applyDeadzone(gamepad.axes[1], 0.25);
@@ -674,23 +710,23 @@ import Colors from "./classes/Colors.js";
       }
 
       if (kiwi.mesh.position.y > 100 && !haveWormsDropped[0]) {
-        worms.push(createBrainfood(350, "0"));
+        worms.push(createBrainfood(350, '0'));
         haveWormsDropped[0] = true;
       }
       if (kiwi.mesh.position.y > 850 && !haveWormsDropped[1]) {
-        worms.push(createBrainfood(1000, "1"));
+        worms.push(createBrainfood(1000, '1'));
         haveWormsDropped[1] = true;
       }
       if (kiwi.mesh.position.y > 1400 && !haveWormsDropped[2]) {
-        worms.push(createBrainfood(1600, "2"));
+        worms.push(createBrainfood(1600, '2'));
         haveWormsDropped[2] = true;
       }
       if (kiwi.mesh.position.y > 1900 && !haveWormsDropped[3]) {
-        worms.push(createBrainfood(2150, "3"));
+        worms.push(createBrainfood(2150, '3'));
         haveWormsDropped[3] = true;
       }
       if (kiwi.mesh.position.y > 2400 && !haveWormsDropped[4]) {
-        worms.push(createBrainfood(2750, "4"));
+        worms.push(createBrainfood(2750, '4'));
         haveWormsDropped[4] = true;
       }
 
@@ -707,7 +743,6 @@ import Colors from "./classes/Colors.js";
           kiwi.mesh.position.y += movementSpeedDouble;
           kiwi.fireLeft();
           kiwi.fireRight();
-
         } else if (joystickRightY > 0 && joystickLeftY <= 0) {
           kiwi.mesh.position.y += movementSpeedSingle;
           kiwi.mesh.position.x -= movementSpeedSingle / 2;
@@ -730,8 +765,6 @@ import Colors from "./classes/Colors.js";
       }
 
       if (kiwi.mesh.position.y > 3050) {
-        scoredMinutes = document.getElementById("minutes").innerHTML;
-        scoredSeconds = document.getElementById("seconds").innerHTML;
         if (!hasCollided) {
           setRandomQuestion();
           setModalQuestion();
@@ -739,17 +772,11 @@ import Colors from "./classes/Colors.js";
         checkAnswer();
       }
 
-      if (circle.pressed && hasCollided) {
-        modalFact.style.display = "none";
-        hasCollided = false;
+      if (hasCollided) {
+        checkTrueFalse();
       }
 
-      if (
-        triggerLeft.value > 0 &&
-        triggerRight.value > 0 &&
-        kiwi.mesh.position.y > 0 &&
-        kiwi.mesh.position.y < 3045
-      ) {
+      if (triggerLeft.value > 0 && triggerRight.value > 0 && kiwi.mesh.position.y > 0 && kiwi.mesh.position.y < 3045) {
         kiwi.mesh.scale.set(0.85, 0.85, 0.85);
         kiwi.mesh.position.y -= 1;
       } else {
