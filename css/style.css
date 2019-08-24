@@ -408,6 +408,10 @@
     margin-top: 5rem;
     font-size: 2.2rem;
   }
+
+  .false {
+      margin-left: 4rem;
+  }
   
   .answer {
     display: flex;
@@ -614,7 +618,7 @@
     background: url("../assets/img/option04.svg");
   }
   
-  #fact {
+  #fact, #trueFalseFact {
     text-align: center;
     line-height: 2.8rem;
   }
@@ -623,6 +627,11 @@
     text-align: center;
     line-height: 2.8rem;
     margin-top: -1rem;
+  }
+
+  .trueFalseButtons {
+      display: flex;
+      flex-direction: row;
   }
   
   .lost-container,
