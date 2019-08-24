@@ -537,8 +537,7 @@ import Plane from './classes/Plane.js';
 
   const removeSeconds = () => {
     if(sec > 10){
-    let val = sec - 10;
-    sec = pad(val % 60);
+      sec = sec - 10;
     } else {
       sec = 0;
     }
